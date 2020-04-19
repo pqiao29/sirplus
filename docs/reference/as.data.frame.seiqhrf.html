@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sirplus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -198,35 +198,35 @@ simulations in the model output.</p>
 <span class='co'># Default output all simulation runs, default to all in stacked data.frame</span>
 <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>)</div><div class='output co'>#&gt;    sim time s.num i.num num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
 #&gt; 1    1    1   500     1 501       0       0       0         0       0       0
-#&gt; 2    1    2   500     1 501       0       0       0         0       0       0
-#&gt; 3    1    3   500     1 501       0       0       0         0       0       0
-#&gt; 4    1    4   500     1 501       0       0       0         0       0       0
-#&gt; 5    1    5   499     1 501       1       0       0         0       0       0
-#&gt; 6    1    6   498     1 501       1       0       0         0       0       0
-#&gt; 7    1    7   497     1 501       1       0       0         0       0       0
-#&gt; 8    1    8   495     2 501       1       0       0         0       0       0
-#&gt; 9    1    9   491     3 501       2       1       0         0       0       0
-#&gt; 10   1   10   488     4 501       2       1       0         0       0       0
+#&gt; 2    1    2   499     1 501       1       0       0         0       0       0
+#&gt; 3    1    3   498     1 501       0       0       0         0       0       0
+#&gt; 4    1    4   495     1 501       2       0       0         0       0       0
+#&gt; 5    1    5   495     2 501       0       1       0         0       0       0
+#&gt; 6    1    6   494     3 501       1       0       0         0       0       0
+#&gt; 7    1    7   491     4 501       2       0       0         0       0       0
+#&gt; 8    1    8   487     5 501       2       0       0         0       0       0
+#&gt; 9    1    9   484     7 501       2       1       0         0       0       0
+#&gt; 10   1   10   478     9 500       2       0       0         0       0       1
 #&gt; 11   2    1   500     1 501       0       0       0         0       0       0
-#&gt; 12   2    2   500     1 501       0       0       0         0       0       0
-#&gt; 13   2    3   499     1 501       1       0       0         0       0       0
-#&gt; 14   2    4   499     1 501       0       1       0         0       0       0
-#&gt; 15   2    5   498     1 501       1       0       0         0       0       0
-#&gt; 16   2    6   498     1 501       0       0       0         0       0       0
-#&gt; 17   2    7   498     1 501       0       0       0         0       0       0
-#&gt; 18   2    8   498     1 501       0       0       0         0       0       0
-#&gt; 19   2    9   497     2 501       1       0       0         0       0       0
-#&gt; 20   2   10   497     2 501       0       0       0         0       0       0
+#&gt; 12   2    2   499     1 501       1       0       0         0       0       0
+#&gt; 13   2    3   499     1 501       0       0       0         0       0       0
+#&gt; 14   2    4   498     1 501       1       0       0         0       0       0
+#&gt; 15   2    5   496     1 501       2       0       0         0       0       0
+#&gt; 16   2    6   494     2 501       0       0       0         0       0       0
+#&gt; 17   2    7   491     3 501       1       0       0         0       0       0
+#&gt; 18   2    8   487     5 501       2       1       0         0       0       0
+#&gt; 19   2    9   481     7 501       3       1       0         0       0       0
+#&gt; 20   2   10   476     9 501       4       0       0         0       0       0
 #&gt; 21   3    1   500     1 501       0       0       0         0       0       0
-#&gt; 22   3    2   500     1 501       0       0       0         0       0       0
-#&gt; 23   3    3   497     1 501       2       0       0         0       0       0
-#&gt; 24   3    4   496     1 501       0       0       0         0       0       0
-#&gt; 25   3    5   496     2 501       0       0       0         0       0       0
-#&gt; 26   3    6   495     3 501       1       0       0         0       0       0
-#&gt; 27   3    7   493     4 501       1       0       0         0       0       0
-#&gt; 28   3    8   488     5 501       4       0       0         0       0       0
-#&gt; 29   3    9   483     7 501       2       0       0         0       0       0
-#&gt; 30   3   10   473     9 501       7       1       0         0       0       0
+#&gt; 22   3    2   499     1 501       1       0       0         0       0       0
+#&gt; 23   3    3   498     1 501       1       0       0         0       0       0
+#&gt; 24   3    4   497     0 501       0       0       1         0       0       0
+#&gt; 25   3    5   497     1 501       0       0       0         0       0       0
+#&gt; 26   3    6   494     2 501       1       0       0         0       0       0
+#&gt; 27   3    7   492     3 501       2       1       0         0       0       0
+#&gt; 28   3    8   490     4 501       2       0       0         0       0       0
+#&gt; 29   3    9   480     5 501       4       1       0         0       0       0
+#&gt; 30   3   10   475     6 501       2       2       1         0       0       0
 #&gt;    de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow a.i.flow a.q.flow
 #&gt; 1        0       0       0       0       0      0        0        0        0
 #&gt; 2        0       0       0       0       0      0        0        0        0
@@ -260,45 +260,45 @@ simulations in the model output.</p>
 #&gt; 30       0       0       0       0       0      0        0        0        0
 #&gt;    e.num r.num q.num h.num f.num
 #&gt; 1     NA    NA    NA    NA    NA
-#&gt; 2      0     0     0     0     0
-#&gt; 3      0     0     0     0     0
-#&gt; 4      0     0     0     0     0
-#&gt; 5      1     0     0     0     0
-#&gt; 6      2     0     0     0     0
-#&gt; 7      3     0     0     0     0
-#&gt; 8      4     0     0     0     0
-#&gt; 9      6     1     0     0     0
-#&gt; 10     7     2     0     0     0
+#&gt; 2      1     0     0     0     0
+#&gt; 3      2     0     0     0     0
+#&gt; 4      5     0     0     0     0
+#&gt; 5      3     1     0     0     0
+#&gt; 6      3     1     0     0     0
+#&gt; 7      5     1     0     0     0
+#&gt; 8      8     1     0     0     0
+#&gt; 9      8     2     0     0     0
+#&gt; 10    11     2     0     0     0
 #&gt; 11    NA    NA    NA    NA    NA
-#&gt; 12     0     0     0     0     0
+#&gt; 12     1     0     0     0     0
 #&gt; 13     1     0     0     0     0
-#&gt; 14     0     1     0     0     0
-#&gt; 15     1     1     0     0     0
-#&gt; 16     1     1     0     0     0
-#&gt; 17     1     1     0     0     0
-#&gt; 18     1     1     0     0     0
-#&gt; 19     1     1     0     0     0
-#&gt; 20     1     1     0     0     0
+#&gt; 14     2     0     0     0     0
+#&gt; 15     4     0     0     0     0
+#&gt; 16     5     0     0     0     0
+#&gt; 17     7     0     0     0     0
+#&gt; 18     8     1     0     0     0
+#&gt; 19    11     2     0     0     0
+#&gt; 20    14     2     0     0     0
 #&gt; 21    NA    NA    NA    NA    NA
-#&gt; 22     0     0     0     0     0
-#&gt; 23     3     0     0     0     0
-#&gt; 24     4     0     0     0     0
-#&gt; 25     3     0     0     0     0
-#&gt; 26     3     0     0     0     0
-#&gt; 27     4     0     0     0     0
-#&gt; 28     8     0     0     0     0
-#&gt; 29    11     0     0     0     0
-#&gt; 30    18     1     0     0     0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>sim</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;    sim time s.num i.num num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
+#&gt; 22     1     0     0     0     0
+#&gt; 23     2     0     0     0     0
+#&gt; 24     3     0     1     0     0
+#&gt; 25     2     0     1     0     0
+#&gt; 26     4     0     1     0     0
+#&gt; 27     4     1     1     0     0
+#&gt; 28     5     1     1     0     0
+#&gt; 29    13     2     1     0     0
+#&gt; 30    14     4     2     0     0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>sim</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt;    sim time s.num i.num num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
 #&gt; 1    2    1   500     1 501       0       0       0         0       0       0
-#&gt; 2    2    2   500     1 501       0       0       0         0       0       0
-#&gt; 3    2    3   499     1 501       1       0       0         0       0       0
-#&gt; 4    2    4   499     1 501       0       1       0         0       0       0
-#&gt; 5    2    5   498     1 501       1       0       0         0       0       0
-#&gt; 6    2    6   498     1 501       0       0       0         0       0       0
-#&gt; 7    2    7   498     1 501       0       0       0         0       0       0
-#&gt; 8    2    8   498     1 501       0       0       0         0       0       0
-#&gt; 9    2    9   497     2 501       1       0       0         0       0       0
-#&gt; 10   2   10   497     2 501       0       0       0         0       0       0
+#&gt; 2    2    2   499     1 501       1       0       0         0       0       0
+#&gt; 3    2    3   499     1 501       0       0       0         0       0       0
+#&gt; 4    2    4   498     1 501       1       0       0         0       0       0
+#&gt; 5    2    5   496     1 501       2       0       0         0       0       0
+#&gt; 6    2    6   494     2 501       0       0       0         0       0       0
+#&gt; 7    2    7   491     3 501       1       0       0         0       0       0
+#&gt; 8    2    8   487     5 501       2       1       0         0       0       0
+#&gt; 9    2    9   481     7 501       3       1       0         0       0       0
+#&gt; 10   2   10   476     9 501       4       0       0         0       0       0
 #&gt;    de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow a.i.flow a.q.flow
 #&gt; 1        0       0       0       0       0      0        0        0        0
 #&gt; 2        0       0       0       0       0      0        0        0        0
@@ -312,95 +312,95 @@ simulations in the model output.</p>
 #&gt; 10       0       0       0       0       0      0        0        0        0
 #&gt;    e.num r.num q.num h.num f.num
 #&gt; 1     NA    NA    NA    NA    NA
-#&gt; 2      0     0     0     0     0
+#&gt; 2      1     0     0     0     0
 #&gt; 3      1     0     0     0     0
-#&gt; 4      0     1     0     0     0
-#&gt; 5      1     1     0     0     0
-#&gt; 6      1     1     0     0     0
-#&gt; 7      1     1     0     0     0
-#&gt; 8      1     1     0     0     0
-#&gt; 9      1     1     0     0     0
-#&gt; 10     1     1     0     0     0</div><div class='input'>
+#&gt; 4      2     0     0     0     0
+#&gt; 5      4     0     0     0     0
+#&gt; 6      5     0     0     0     0
+#&gt; 7      7     0     0     0     0
+#&gt; 8      8     1     0     0     0
+#&gt; 9     11     2     0     0     0
+#&gt; 10    14     2     0     0     0</div><div class='input'>
 <span class='co'># Time-specific means across simulations</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)</div><div class='output co'>#&gt;    time    s.num    i.num num   se.flow   is.flow iq.flow iq2h.flow hf.flow
-#&gt; 1     1 500.0000 1.000000 501 0.0000000 0.0000000       0         0       0
-#&gt; 2     2 500.0000 1.000000 501 0.0000000 0.0000000       0         0       0
-#&gt; 3     3 498.6667 1.000000 501 1.0000000 0.0000000       0         0       0
-#&gt; 4     4 498.3333 1.000000 501 0.0000000 0.3333333       0         0       0
-#&gt; 5     5 497.6667 1.333333 501 0.6666667 0.0000000       0         0       0
-#&gt; 6     6 497.0000 1.666667 501 0.6666667 0.0000000       0         0       0
-#&gt; 7     7 496.0000 2.000000 501 0.6666667 0.0000000       0         0       0
-#&gt; 8     8 493.6667 2.666667 501 1.6666667 0.0000000       0         0       0
-#&gt; 9     9 490.3333 4.000000 501 1.6666667 0.3333333       0         0       0
-#&gt; 10   10 486.0000 5.000000 501 3.0000000 0.6666667       0         0       0
-#&gt;    ds.flow de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow a.i.flow
-#&gt; 1        0       0       0       0       0       0      0        0        0
-#&gt; 2        0       0       0       0       0       0      0        0        0
-#&gt; 3        0       0       0       0       0       0      0        0        0
-#&gt; 4        0       0       0       0       0       0      0        0        0
-#&gt; 5        0       0       0       0       0       0      0        0        0
-#&gt; 6        0       0       0       0       0       0      0        0        0
-#&gt; 7        0       0       0       0       0       0      0        0        0
-#&gt; 8        0       0       0       0       0       0      0        0        0
-#&gt; 9        0       0       0       0       0       0      0        0        0
-#&gt; 10       0       0       0       0       0       0      0        0        0
-#&gt;    a.q.flow    e.num     r.num q.num h.num f.num
-#&gt; 1         0      NaN       NaN   NaN   NaN   NaN
-#&gt; 2         0 0.000000 0.0000000     0     0     0
-#&gt; 3         0 1.333333 0.0000000     0     0     0
-#&gt; 4         0 1.333333 0.3333333     0     0     0
-#&gt; 5         0 1.666667 0.3333333     0     0     0
-#&gt; 6         0 2.000000 0.3333333     0     0     0
-#&gt; 7         0 2.666667 0.3333333     0     0     0
-#&gt; 8         0 4.333333 0.3333333     0     0     0
-#&gt; 9         0 6.000000 0.6666667     0     0     0
-#&gt; 10        0 8.666667 1.3333333     0     0     0</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)</div><div class='output co'>#&gt;    time    s.num     i.num      num   se.flow   is.flow   iq.flow iq2h.flow
+#&gt; 1     1 500.0000 1.0000000 501.0000 0.0000000 0.0000000 0.0000000         0
+#&gt; 2     2 499.0000 1.0000000 501.0000 1.0000000 0.0000000 0.0000000         0
+#&gt; 3     3 498.3333 1.0000000 501.0000 0.3333333 0.0000000 0.0000000         0
+#&gt; 4     4 496.6667 0.6666667 501.0000 1.0000000 0.0000000 0.3333333         0
+#&gt; 5     5 496.0000 1.3333333 501.0000 0.6666667 0.3333333 0.0000000         0
+#&gt; 6     6 494.0000 2.3333333 501.0000 0.6666667 0.0000000 0.0000000         0
+#&gt; 7     7 491.3333 3.3333333 501.0000 1.6666667 0.3333333 0.0000000         0
+#&gt; 8     8 488.0000 4.6666667 501.0000 2.0000000 0.3333333 0.0000000         0
+#&gt; 9     9 481.6667 6.3333333 501.0000 3.0000000 1.0000000 0.0000000         0
+#&gt; 10   10 476.3333 8.0000000 500.6667 2.6666667 0.6666667 0.3333333         0
+#&gt;    hf.flow   ds.flow de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow
+#&gt; 1        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 2        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 3        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 4        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 5        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 6        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 7        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 8        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 9        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 10       0 0.3333333       0       0       0       0       0      0        0
+#&gt;    a.i.flow a.q.flow     e.num     r.num     q.num h.num f.num
+#&gt; 1         0        0       NaN       NaN       NaN   NaN   NaN
+#&gt; 2         0        0  1.000000 0.0000000 0.0000000     0     0
+#&gt; 3         0        0  1.666667 0.0000000 0.0000000     0     0
+#&gt; 4         0        0  3.333333 0.0000000 0.3333333     0     0
+#&gt; 5         0        0  3.000000 0.3333333 0.3333333     0     0
+#&gt; 6         0        0  4.000000 0.3333333 0.3333333     0     0
+#&gt; 7         0        0  5.333333 0.6666667 0.3333333     0     0
+#&gt; 8         0        0  7.000000 1.0000000 0.3333333     0     0
+#&gt; 9         0        0 10.666667 2.0000000 0.3333333     0     0
+#&gt; 10        0        0 13.000000 2.6666667 0.6666667     0     0</div><div class='input'>
 <span class='co'># Time-specific standard deviations across simulations</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"sd"</span>)</div><div class='output co'>#&gt;    time     s.num     i.num num   se.flow   is.flow iq.flow iq2h.flow hf.flow
-#&gt; 1     1  0.000000 0.0000000   0 0.0000000 0.0000000       0         0       0
-#&gt; 2     2  0.000000 0.0000000   0 0.0000000 0.0000000       0         0       0
-#&gt; 3     3  1.527525 0.0000000   0 1.0000000 0.0000000       0         0       0
-#&gt; 4     4  2.081666 0.0000000   0 0.0000000 0.5773503       0         0       0
-#&gt; 5     5  1.527525 0.5773503   0 0.5773503 0.0000000       0         0       0
-#&gt; 6     6  1.732051 1.1547005   0 0.5773503 0.0000000       0         0       0
-#&gt; 7     7  2.645751 1.7320508   0 0.5773503 0.0000000       0         0       0
-#&gt; 8     8  5.131601 2.0816660   0 2.0816660 0.0000000       0         0       0
-#&gt; 9     9  7.023769 2.6457513   0 0.5773503 0.5773503       0         0       0
-#&gt; 10   10 12.124356 3.6055513   0 3.6055513 0.5773503       0         0       0
-#&gt;    ds.flow de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow a.i.flow
-#&gt; 1        0       0       0       0       0       0      0        0        0
-#&gt; 2        0       0       0       0       0       0      0        0        0
-#&gt; 3        0       0       0       0       0       0      0        0        0
-#&gt; 4        0       0       0       0       0       0      0        0        0
-#&gt; 5        0       0       0       0       0       0      0        0        0
-#&gt; 6        0       0       0       0       0       0      0        0        0
-#&gt; 7        0       0       0       0       0       0      0        0        0
-#&gt; 8        0       0       0       0       0       0      0        0        0
-#&gt; 9        0       0       0       0       0       0      0        0        0
-#&gt; 10       0       0       0       0       0       0      0        0        0
-#&gt;    a.q.flow    e.num     r.num q.num h.num f.num
-#&gt; 1         0       NA        NA    NA    NA    NA
-#&gt; 2         0 0.000000 0.0000000     0     0     0
-#&gt; 3         0 1.527525 0.0000000     0     0     0
-#&gt; 4         0 2.309401 0.5773503     0     0     0
-#&gt; 5         0 1.154701 0.5773503     0     0     0
-#&gt; 6         0 1.000000 0.5773503     0     0     0
-#&gt; 7         0 1.527525 0.5773503     0     0     0
-#&gt; 8         0 3.511885 0.5773503     0     0     0
-#&gt; 9         0 5.000000 0.5773503     0     0     0
-#&gt; 10        0 8.621678 0.5773503     0     0     0</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"sd"</span>)</div><div class='output co'>#&gt;    time     s.num     i.num       num   se.flow   is.flow   iq.flow iq2h.flow
+#&gt; 1     1 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000         0
+#&gt; 2     2 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000         0
+#&gt; 3     3 0.5773503 0.0000000 0.0000000 0.5773503 0.0000000 0.0000000         0
+#&gt; 4     4 1.5275252 0.5773503 0.0000000 1.0000000 0.0000000 0.5773503         0
+#&gt; 5     5 1.0000000 0.5773503 0.0000000 1.1547005 0.5773503 0.0000000         0
+#&gt; 6     6 0.0000000 0.5773503 0.0000000 0.5773503 0.0000000 0.0000000         0
+#&gt; 7     7 0.5773503 0.5773503 0.0000000 0.5773503 0.5773503 0.0000000         0
+#&gt; 8     8 1.7320508 0.5773503 0.0000000 0.0000000 0.5773503 0.0000000         0
+#&gt; 9     9 2.0816660 1.1547005 0.0000000 1.0000000 0.0000000 0.0000000         0
+#&gt; 10   10 1.5275252 1.7320508 0.5773503 1.1547005 1.1547005 0.5773503         0
+#&gt;    hf.flow   ds.flow de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow
+#&gt; 1        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 2        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 3        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 4        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 5        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 6        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 7        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 8        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 9        0 0.0000000       0       0       0       0       0      0        0
+#&gt; 10       0 0.5773503       0       0       0       0       0      0        0
+#&gt;    a.i.flow a.q.flow     e.num     r.num     q.num h.num f.num
+#&gt; 1         0        0        NA        NA        NA    NA    NA
+#&gt; 2         0        0 0.0000000 0.0000000 0.0000000     0     0
+#&gt; 3         0        0 0.5773503 0.0000000 0.0000000     0     0
+#&gt; 4         0        0 1.5275252 0.0000000 0.5773503     0     0
+#&gt; 5         0        0 1.0000000 0.5773503 0.5773503     0     0
+#&gt; 6         0        0 1.0000000 0.5773503 0.5773503     0     0
+#&gt; 7         0        0 1.5275252 0.5773503 0.5773503     0     0
+#&gt; 8         0        0 1.7320508 0.0000000 0.5773503     0     0
+#&gt; 9         0        0 2.5166115 0.0000000 0.5773503     0     0
+#&gt; 10        0        0 1.7320508 1.1547005 1.1547005     0     0</div><div class='input'>
 <span class='co'># Time-specific quantile values across simulations</span>
-<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"qnt"</span>, <span class='kw'>qval</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='output co'>#&gt;    time s.num i.num num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
-#&gt; 1     1 500.0   1.0 501     0.0     0.0       0         0       0       0
-#&gt; 2     2 500.0   1.0 501     0.0     0.0       0         0       0       0
-#&gt; 3     3 498.0   1.0 501     0.5     0.0       0         0       0       0
-#&gt; 4     4 497.5   1.0 501     0.0     0.0       0         0       0       0
-#&gt; 5     5 497.0   1.0 501     0.5     0.0       0         0       0       0
-#&gt; 6     6 496.5   1.0 501     0.5     0.0       0         0       0       0
-#&gt; 7     7 495.0   1.0 501     0.5     0.0       0         0       0       0
-#&gt; 8     8 491.5   1.5 501     0.5     0.0       0         0       0       0
-#&gt; 9     9 487.0   2.5 501     1.5     0.0       0         0       0       0
-#&gt; 10   10 480.5   3.0 501     1.0     0.5       0         0       0       0
+<span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"qnt"</span>, <span class='kw'>qval</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='output co'>#&gt;    time s.num i.num   num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
+#&gt; 1     1 500.0   1.0 501.0     0.0       0       0         0       0       0
+#&gt; 2     2 499.0   1.0 501.0     1.0       0       0         0       0       0
+#&gt; 3     3 498.0   1.0 501.0     0.0       0       0         0       0       0
+#&gt; 4     4 496.0   0.5 501.0     0.5       0       0         0       0       0
+#&gt; 5     5 495.5   1.0 501.0     0.0       0       0         0       0       0
+#&gt; 6     6 494.0   2.0 501.0     0.5       0       0         0       0       0
+#&gt; 7     7 491.0   3.0 501.0     1.5       0       0         0       0       0
+#&gt; 8     8 487.0   4.5 501.0     2.0       0       0         0       0       0
+#&gt; 9     9 480.5   6.0 501.0     2.5       1       0         0       0       0
+#&gt; 10   10 475.5   7.5 500.5     2.0       0       0         0       0       0
 #&gt;    de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow a.i.flow a.q.flow
 #&gt; 1        0       0       0       0       0      0        0        0        0
 #&gt; 2        0       0       0       0       0      0        0        0        0
@@ -414,25 +414,25 @@ simulations in the model output.</p>
 #&gt; 10       0       0       0       0       0      0        0        0        0
 #&gt;    e.num r.num q.num h.num f.num
 #&gt; 1     NA    NA    NA    NA    NA
-#&gt; 2    0.0   0.0     0     0     0
-#&gt; 3    0.5   0.0     0     0     0
-#&gt; 4    0.0   0.0     0     0     0
-#&gt; 5    1.0   0.0     0     0     0
-#&gt; 6    1.5   0.0     0     0     0
-#&gt; 7    2.0   0.0     0     0     0
-#&gt; 8    2.5   0.0     0     0     0
-#&gt; 9    3.5   0.5     0     0     0
-#&gt; 10   4.0   1.0     0     0     0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"qnt"</span>, <span class='kw'>qval</span> <span class='kw'>=</span> <span class='fl'>0.75</span>)</div><div class='output co'>#&gt;    time s.num i.num num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
-#&gt; 1     1 500.0   1.0 501     0.0     0.0       0         0       0       0
-#&gt; 2     2 500.0   1.0 501     0.0     0.0       0         0       0       0
-#&gt; 3     3 499.5   1.0 501     1.5     0.0       0         0       0       0
-#&gt; 4     4 499.5   1.0 501     0.0     0.5       0         0       0       0
-#&gt; 5     5 498.5   1.5 501     1.0     0.0       0         0       0       0
-#&gt; 6     6 498.0   2.0 501     1.0     0.0       0         0       0       0
-#&gt; 7     7 497.5   2.5 501     1.0     0.0       0         0       0       0
-#&gt; 8     8 496.5   3.5 501     2.5     0.0       0         0       0       0
-#&gt; 9     9 494.0   5.0 501     2.0     0.5       0         0       0       0
-#&gt; 10   10 492.5   6.5 501     4.5     1.0       0         0       0       0
+#&gt; 2    1.0   0.0     0     0     0
+#&gt; 3    1.5   0.0     0     0     0
+#&gt; 4    2.5   0.0     0     0     0
+#&gt; 5    2.5   0.0     0     0     0
+#&gt; 6    3.5   0.0     0     0     0
+#&gt; 7    4.5   0.5     0     0     0
+#&gt; 8    6.5   1.0     0     0     0
+#&gt; 9    9.5   2.0     0     0     0
+#&gt; 10  12.5   2.0     0     0     0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>mod</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"qnt"</span>, <span class='kw'>qval</span> <span class='kw'>=</span> <span class='fl'>0.75</span>)</div><div class='output co'>#&gt;    time s.num i.num num se.flow is.flow iq.flow iq2h.flow hf.flow ds.flow
+#&gt; 1     1 500.0   1.0 501     0.0     0.0     0.0         0       0     0.0
+#&gt; 2     2 499.0   1.0 501     1.0     0.0     0.0         0       0     0.0
+#&gt; 3     3 498.5   1.0 501     0.5     0.0     0.0         0       0     0.0
+#&gt; 4     4 497.5   1.0 501     1.5     0.0     0.5         0       0     0.0
+#&gt; 5     5 496.5   1.5 501     1.0     0.5     0.0         0       0     0.0
+#&gt; 6     6 494.0   2.5 501     1.0     0.0     0.0         0       0     0.0
+#&gt; 7     7 491.5   3.5 501     2.0     0.5     0.0         0       0     0.0
+#&gt; 8     8 488.5   5.0 501     2.0     0.5     0.0         0       0     0.0
+#&gt; 9     9 482.5   7.0 501     3.5     1.0     0.0         0       0     0.0
+#&gt; 10   10 477.0   9.0 501     3.0     1.0     0.5         0       0     0.5
 #&gt;    de.flow di.flow dq.flow dh.flow dr.flow a.flow a.e.flow a.i.flow a.q.flow
 #&gt; 1        0       0       0       0       0      0        0        0        0
 #&gt; 2        0       0       0       0       0      0        0        0        0
@@ -446,15 +446,15 @@ simulations in the model output.</p>
 #&gt; 10       0       0       0       0       0      0        0        0        0
 #&gt;    e.num r.num q.num h.num f.num
 #&gt; 1     NA    NA    NA    NA    NA
-#&gt; 2    0.0   0.0     0     0     0
-#&gt; 3    2.0   0.0     0     0     0
-#&gt; 4    2.0   0.5     0     0     0
-#&gt; 5    2.0   0.5     0     0     0
-#&gt; 6    2.5   0.5     0     0     0
-#&gt; 7    3.5   0.5     0     0     0
-#&gt; 8    6.0   0.5     0     0     0
-#&gt; 9    8.5   1.0     0     0     0
-#&gt; 10  12.5   1.5     0     0     0</div><div class='input'>
+#&gt; 2    1.0   0.0   0.0     0     0
+#&gt; 3    2.0   0.0   0.0     0     0
+#&gt; 4    4.0   0.0   0.5     0     0
+#&gt; 5    3.5   0.5   0.5     0     0
+#&gt; 6    4.5   0.5   0.5     0     0
+#&gt; 7    6.0   1.0   0.5     0     0
+#&gt; 8    8.0   1.0   0.5     0     0
+#&gt; 9   12.0   2.0   0.5     0     0
+#&gt; 10  14.0   3.0   1.0     0     0</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
