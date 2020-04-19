@@ -1,5 +1,5 @@
 title: sirplus
-destination: public
+destination: docs
 template:
   params:
     bootswatch: cosmo
