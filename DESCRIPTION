@@ -1,0 +1,50 @@
+Package: sirplus
+Type: Package
+Title: Using stochastic individual compartment models (ICMs) to simulate COVID-19 spread
+Version: 0.1.0
+Date: 2020-03-29
+Authors@R:
+    c(person("Puxue", "Qiao", role = c("aut"),
+      email = "pqiao@svi.edu.au"),
+      person("Christina", "Azodi", role = c("aut"),
+      email = "cazodi@svi.edu.au",
+      comment = c(ORCID = "0000-0002-6097-606X")),
+      person("Ruqian", "Lyu", role = c("aut"),
+      email = "rlyu@svi.edu.au"),
+      person("Sam", "Tanner", role = c("aut"),
+      email = "stanner@svi.edu.au"),
+      person("Tim", "Churches", role = c("aut")),
+      person("Davis", "McCarthy", role = c("aut", "cre"),
+      email = "dmccarthy@svi.edu.au",
+      comment = c(ORCID = "0000-0002-2218-6833")))
+Description: sirplus is a package for the modeling of COVID-19 spread with extensions to the classical Susceptible-Infectious-Recovered (SIR) model, using 
+    stochastic individual compartment models (ICMs). It provides a simple interface
+    for creating experiments to demonstrate how factors like social-distancing and
+    epidemiological parameters will change the curve of an epidemic's trajectory. 
+License: GPL-3 + file LICENSE
+LazyData: TRUE
+Depends:
+    R (>= 3.6)
+Imports:
+    doParallel, 
+    dplyr,
+    tidyr, 
+    stats, 
+    future,
+    EpiModel,
+    lubridate,
+    ggplot2,
+    foreach
+Suggests:
+    earlyR,
+    knitr,
+    magick,
+    rmarkdown,
+    spelling, 
+    testthat, 
+    devtools
+biocViews: Epidemiology, Software
+RoxygenNote: 7.1.0
+VignetteBuilder: knitr
+Encoding: UTF-8
+Language: en-GB

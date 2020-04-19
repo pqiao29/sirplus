@@ -1,0 +1,5 @@
+title: sirplus
+destination: public
+template:
+  params:
+    bootswatch: cosmo
