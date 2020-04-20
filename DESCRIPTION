@@ -5,7 +5,8 @@ Version: 0.2.0
 Date: 2020-03-29
 Authors@R:
     c(person("Puxue", "Qiao", role = c("aut"),
-      email = "pqiao@svi.edu.au"),
+      email = "pqiao@svi.edu.au", 
+      comment = c(ORCID = "0000-0002-1521-9086")),
       person("Christina", "Azodi", role = c("aut"),
       email = "cazodi@svi.edu.au",
       comment = c(ORCID = "0000-0002-6097-606X")),
