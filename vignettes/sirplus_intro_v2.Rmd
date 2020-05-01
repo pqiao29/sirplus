@@ -16,9 +16,9 @@ knitr::opts_chunk$set(echo = TRUE, cache=FALSE, eval=TRUE, collapse = TRUE,
 
 ![](sirplus-logo-small.png)
 
-The sirplus package makes it easy to generate stochastic individual compartment 
-models (ICMs) to simulate contagious disease spread using compartments not 
-available in standard SIR packages. This method and most of the code was 
+The sirplus package makes it easy to generate [stochastic individual compartment 
+models (ICMs)](https://www.ncbi.nlm.nih.gov/pubmed/29731699) to simulate contagious disease spread using compartments not 
+available in standard SIR model in the [EpiModel package](http://www.epimodel.org/). This method and most of the code was 
 originally written by Tim Churches (see his [blog post](https://timchurches.github.io/blog/posts/2020-03-18-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-2/)). The sirplus package was developed by 
 the Bioinformatics & Cellular Genomics team at St. Vincent's Institute of 
 Medical Research in order to help St. Vincents' Hospital model the COVID-19
@@ -41,9 +41,9 @@ See Tim Churches's [blog post](https://timchurches.github.io/blog/posts/2020-03-
 
 ![](model_diagram.png)
 
-| trasnitions  | Description     | Parameters (with default values)     |
-|-------------|----------------| ------------------------------------------------------------------|
-| **inf**     | Infection due to contact     | `act.rate.*` and `inf.prob.*`, where `*` = `i`, `e`, `q`          | 
+| Transitions  | Description     | Parameters (with default values)     |
+|-------------|-----------------------------------------|-------------------------------------------|
+| **inf**     | Infection due to contact with I, E and Q, which correspond to **inf.i**, **inf.e** and **inf.q** respectively.<br> (See the diagram below for more details)  | `act.rate.*` and `inf.prob.*`, where `*` = `i`, `e`, `q`  <br>(See table below for more details)      | 
 | **prog**    | Progress from asymptomatic to symptomatic | `prog.rand = FALSE`, `prog.rate`, `prog.dist.scale = 5`, `prog.dist.shape = 1.5`  |    
 | **quar**    | From infectious to quarantine      | `quar.rand = TRUE`, `quar.rate = 1/30`       | 
 | **hosp**    | From infected (both before and during quarantine) to require hospitalisation  | `quar.rand = TRUE`, `quar.rate = 1/30`       | 
@@ -52,13 +52,23 @@ See Tim Churches's [blog post](https://timchurches.github.io/blog/posts/2020-03-
 | **disch**    |  recovery after hospitalization | `disch.rand = TRUE`, `disch.rate = 1/15` | 
 | **fat**    |  Fatality | `fat.rate.base = 1/50`, `hosp.cap = 40`, `fat.rate.overcap = 1/25`, `fat.tcoeff = 0.5` | 
 
+The **inf** transaction results from the contact of S with at least one of I, E and Q compartments, 
+the three sub-transactions are described in the following diagram:   
 
+<p align="center"> 
+<img align="center" src="inf.png" width="300">
+</p>
 
+Each one of  **inf.i**, **inf.e** and **inf.q** are controled by two parameters: <br>
+- `act.rate.*` controls the number of the S that are in contact with * each day, <br>
+- `inf.prob.*` controls the probability that S turns into E, given that S is in contact with *, <br>
+where `*` is one of `i`, `e` and `q` respectively.
 
-```{r, load package}
-#library(sirplus)
-devtools::load_all(".")
-```
+| Transitions  | Description     | Parameters (with default values)     |
+|-------------|----------------------------| --------------------------------------------------------|
+| **inf.i**     | Infection of S due to contact with I  | `act.rate.i = 10` and `inf.prob.i = 0.05`  | 
+| **inf.e**     | Infection of S due to contact with E  | `act.rate.e = 10` and `inf.prob.e = 0.02`  | 
+| **inf.q**     | Infection of S due to contact with Q  | `act.rate.q = 2.5` and `inf.prob.q = 0.02`  | 
 
 
 ## Simulate and inspect a baseline sirplus model
@@ -73,10 +83,12 @@ has been hospitalized (H). We call this the baseline model because it uses
 default parameters for disease spread (i.e. no additional interventions).
 
 ```{r, set parameters}
+library(sirplus)
 s.num <- 2000  # number susceptible
 i.num <- 15  # number infected 
 q.num <- 5  # number in self-isolation
 h.num <- 1  # number in the hospital
+sim_population <- s.num + i.num + q.num + h.num
 nsteps <- 90 # number of steps (e.g. days) to simulate
 
 control <- control_seiqhrf(nsteps = nsteps)
@@ -226,11 +238,16 @@ This function takes the following input:
   - `total_population`: True population size. This parameter is only needed if
   the simulation size (s.num) was smaller than the true population size (i.e. 
   scaled down) to reduce computational cost.
+  - `sim_population`: Size of simulation population. Only needed if providing
+  `total_population`.
   
-```{r hospital visualization}
+```{r hospital visualization, message=FALSE}
+library(lubridate)
 plot(baseline_sim, method = "weekly_local", 
      time_lim = 40, 
      start_date = ymd("2020-01-01"), 
      show_start_date = ymd("2020-01-06"),
+     total_population = 40000,
+     sim_population = sim_population,
      return_df = TRUE)
 ```

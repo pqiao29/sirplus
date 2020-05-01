@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sirplus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
     
     
 <p><img src="sirplus-logo-small.png"></p>
-<p>The sirplus package makes it easy to generate stochastic individual compartment models (ICMs) to simulate contagious disease spread using compartments not available in standard SIR packages. This method and most of the code was originally written by Tim Churches (see his <a href="https://timchurches.github.io/blog/posts/2020-03-18-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-2/">blog post</a>). The sirplus package was developed by the Bioinformatics &amp; Cellular Genomics team at St. Vincent’s Institute of Medical Research in order to help St. Vincents’ Hospital model the COVID-19 pandemic.</p>
+<p>The sirplus package makes it easy to generate <a href="https://www.ncbi.nlm.nih.gov/pubmed/29731699">stochastic individual compartment models (ICMs)</a> to simulate contagious disease spread using compartments not available in standard SIR model in the <a href="http://www.epimodel.org/">EpiModel package</a>. This method and most of the code was originally written by Tim Churches (see his <a href="https://timchurches.github.io/blog/posts/2020-03-18-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-2/">blog post</a>). The sirplus package was developed by the Bioinformatics &amp; Cellular Genomics team at St. Vincent’s Institute of Medical Research in order to help St. Vincents’ Hospital model the COVID-19 pandemic.</p>
 <p>The compartments available in this package include:</p>
 <table class="table">
 <colgroup>
@@ -131,21 +131,20 @@
 <table class="table">
 <colgroup>
 <col width="13%">
-<col width="16%">
-<col width="69%">
+<col width="42%">
+<col width="44%">
 </colgroup>
 <thead><tr class="header">
-<th>trasnitions</th>
+<th>Transitions</th>
 <th>Description</th>
 <th>Parameters (with default values)</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td><strong>inf</strong></td>
-<td>Infection due to contact</td>
+<td>Infection due to contact with I, E and Q, which correspond to <strong>inf.i</strong>, <strong>inf.e</strong> and <strong>inf.q</strong> respectively.<br> (See the diagram below for more details)</td>
 <td>
-<code>act.rate.*</code> and <code>inf.prob.*</code>, where <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> = <code>i</code>, <code>e</code>, <code>q</code>
-</td>
+<code>act.rate.*</code> and <code>inf.prob.*</code>, where <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> = <code>i</code>, <code>e</code>, <code>q</code> <br>(See table below for more details)</td>
 </tr>
 <tr class="even">
 <td><strong>prog</strong></td>
@@ -198,9 +197,45 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">#library(sirplus)</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/load_all.html">load_all</a></span>(<span class="st">"."</span>)
-<span class="co">## Loading sirplus</span></pre></body></html></div>
+<p>The <strong>inf</strong> transaction results from the contact of S with at least one of I, E and Q compartments, the three sub-transactions are described in the following diagram:</p>
+<p align="center">
+<img align="center" src="inf.png" width="300"></p>
+<p>Each one of <strong>inf.i</strong>, <strong>inf.e</strong> and <strong>inf.q</strong> are controled by two parameters: <br> - <code>act.rate.*</code> controls the number of the S that are in contact with * each day, <br> - <code>inf.prob.*</code> controls the probability that S turns into E, given that S is in contact with *, <br> where <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> is one of <code>i</code>, <code>e</code> and <code>q</code> respectively.</p>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="28%">
+<col width="57%">
+</colgroup>
+<thead><tr class="header">
+<th>Transitions</th>
+<th>Description</th>
+<th>Parameters (with default values)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>inf.i</strong></td>
+<td>Infection of S due to contact with I</td>
+<td>
+<code>act.rate.i = 10</code> and <code>inf.prob.i = 0.05</code>
+</td>
+</tr>
+<tr class="even">
+<td><strong>inf.e</strong></td>
+<td>Infection of S due to contact with E</td>
+<td>
+<code>act.rate.e = 10</code> and <code>inf.prob.e = 0.02</code>
+</td>
+</tr>
+<tr class="odd">
+<td><strong>inf.q</strong></td>
+<td>Infection of S due to contact with Q</td>
+<td>
+<code>act.rate.q = 2.5</code> and <code>inf.prob.q = 0.02</code>
+</td>
+</tr>
+</tbody>
+</table>
 <div id="simulate-and-inspect-a-baseline-sirplus-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulate-and-inspect-a-baseline-sirplus-model" class="anchor"></a>Simulate and inspect a baseline sirplus model</h2>
@@ -208,10 +243,12 @@
 <h3 class="hasAnchor">
 <a href="#set-parameters" class="anchor"></a>Set parameters</h3>
 <p>Here we will simulate the epidemiological data for a made-up population with 1000 susceptible individuals (S), 50 that are infected but not in the hospital or in self-quarantine (I; maybe people that are infected/symptomatic but not tested/ aware), 10 confirmed cases that have self-isolated (Q), and 1 confirmed case that has been hospitalized (H). We call this the baseline model because it uses default parameters for disease spread (i.e. no additional interventions).</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">s.num</span> <span class="kw">&lt;-</span> <span class="fl">2000</span>  <span class="co"># number susceptible</span>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">sirplus</span>)
+<span class="no">s.num</span> <span class="kw">&lt;-</span> <span class="fl">2000</span>  <span class="co"># number susceptible</span>
 <span class="no">i.num</span> <span class="kw">&lt;-</span> <span class="fl">15</span>  <span class="co"># number infected </span>
 <span class="no">q.num</span> <span class="kw">&lt;-</span> <span class="fl">5</span>  <span class="co"># number in self-isolation</span>
 <span class="no">h.num</span> <span class="kw">&lt;-</span> <span class="fl">1</span>  <span class="co"># number in the hospital</span>
+<span class="no">sim_population</span> <span class="kw">&lt;-</span> <span class="no">s.num</span> + <span class="no">i.num</span> + <span class="no">q.num</span> + <span class="no">h.num</span>
 <span class="no">nsteps</span> <span class="kw">&lt;-</span> <span class="fl">90</span> <span class="co"># number of steps (e.g. days) to simulate</span>
 
 <span class="no">control</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/control_seiqhrf.html">control_seiqhrf</a></span>(<span class="kw">nsteps</span> <span class="kw">=</span> <span class="no">nsteps</span>)
@@ -300,6 +337,8 @@
 <span class="co">## hosp.cap = 40</span>
 <span class="co">## fat.rate.overcap = 0.04</span>
 <span class="co">## fat.tcoeff = 0.5</span>
+<span class="co">## flare.inf.point =</span>
+<span class="co">## flare.inf.num =</span>
 <span class="co">## a.rate = 2.876712e-05</span>
 <span class="co">## a.prop.e = 0.01</span>
 <span class="co">## a.prop.i = 0.001</span>
@@ -317,7 +356,7 @@
 <h3 class="hasAnchor">
 <a href="#simulate-baseline" class="anchor"></a>Simulate baseline</h3>
 <p>This will produce an seiqhrf object.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">baseline_sim</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/seiqhrf.html">seiqhrf</a></span>(<span class="no">init</span>, <span class="no">control</span>, <span class="no">param</span>)
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">baseline_sim</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/seiqhrf.html">seiqhrf</a></span>(<span class="no">init</span>, <span class="no">control</span>, <span class="no">param</span>)
 <span class="no">baseline_sim</span>
 <span class="co">## SEIQHRF Model Simulation</span>
 <span class="co">## =======================</span>
@@ -338,66 +377,66 @@
 <div id="extract-summary-of-the-simulation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extract-summary-of-the-simulation" class="anchor"></a>Extract summary of the simulation</h3>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">baseline_sim</span>)
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">baseline_sim</span>)
 <span class="co">## Peaks of SEIQHRF Model Simulation: </span>
 <span class="co">## ===============================</span>
 <span class="co">##           Max Time</span>
 <span class="co">## s.num 2000.00    1</span>
-<span class="co">## e.num  347.50   21</span>
-<span class="co">## i.num  534.38   25</span>
-<span class="co">## q.num  114.88   28</span>
-<span class="co">## h.num   63.00   32</span>
-<span class="co">## r.num 1930.62   90</span>
-<span class="co">## f.num    4.50   46</span>
+<span class="co">## e.num  343.88   20</span>
+<span class="co">## i.num  535.25   26</span>
+<span class="co">## q.num  114.00   29</span>
+<span class="co">## h.num   60.88   34</span>
+<span class="co">## r.num 1929.62   90</span>
+<span class="co">## f.num    3.50   60</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/ls_str.html">ls.str</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">baseline_sim</span>))
 <span class="co">## e.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] NaN 8.38 16.62 25 30.12 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] NA 4.27 6.05 7.41 5.84 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] NaN -0.00222 4.77493 10.48314 18.67534 ...</span>
-<span class="co">##  $ qntCI: num [1:90, 1:2] NA 3.17 8.22 16.7 22.35 ...</span>
+<span class="co">##  $ mean : Named num [1:90] NaN 8.75 16.5 23 31.5 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] NA 4.59 7.17 8.19 11.56 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] NaN -0.247 2.444 6.94 8.836 ...</span>
+<span class="co">##  $ qntCI: num [1:90, 1:2] NA 2.35 9.18 13.18 15.22 ...</span>
 <span class="co">## f.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] NaN 0 0 0 0 0 0 0 0 0.125 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] NA 0 0 0 0 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] NaN 0 0 0 0 ...</span>
+<span class="co">##  $ mean : Named num [1:90] NaN 0 0 0 0.125 0.125 0.25 0.25 0.25 0.375 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] NA 0 0 0 0.354 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] NaN 0 0 0 -0.568 ...</span>
 <span class="co">##  $ qntCI: num [1:90, 1:2] NA 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="co">## h.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] NaN 1.12 1.38 1.62 2.12 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] NA 0.354 1.061 1.061 0.991 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] NaN 0.432 -0.704 -0.454 0.183 ...</span>
-<span class="co">##  $ qntCI: num [1:90, 1:2] NA 1 0.175 1 1 ...</span>
+<span class="co">##  $ mean : Named num [1:90] NaN 1.12 1.5 1.38 1.5 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] NA 0.354 0.756 0.518 0.535 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] NaN 0.432 0.0184 0.3606 0.4523 ...</span>
+<span class="co">##  $ qntCI: num [1:90, 1:2] NA 1 1 1 1 ...</span>
 <span class="co">## i.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] 15 14.8 15.1 16.5 20.4 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] 0 0.463 0.835 1.852 3.462 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] 15 13.8 13.5 12.9 13.6 ...</span>
-<span class="co">##  $ qntCI: num [1:90, 1:2] 15 14 14 14.2 16.2 ...</span>
+<span class="co">##  $ mean : Named num [1:90] 15 14.6 14.6 16.6 20.1 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] 0 0.518 1.506 2.615 4.086 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] 15 13.6 11.7 11.5 12.1 ...</span>
+<span class="co">##  $ qntCI: num [1:90, 1:2] 15 14 12.2 13.2 16 ...</span>
 <span class="co">## q.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] NaN 5.12 5.12 5.75 6.25 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] NA 0.354 0.835 1.165 1.282 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] NaN 4.43 3.49 3.47 3.74 ...</span>
-<span class="co">##  $ qntCI: num [1:90, 1:2] NA 5 4 4.17 4.17 ...</span>
+<span class="co">##  $ mean : Named num [1:90] NaN 5.25 5.5 5.75 6.5 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] NA 0.463 0.756 0.707 1.195 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] NaN 4.34 4.02 4.36 4.16 ...</span>
+<span class="co">##  $ qntCI: num [1:90, 1:2] NA 5 5 5 5.18 ...</span>
 <span class="co">## r.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] NaN 0.375 1.25 2.5 5 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] NA 0.744 1.035 1.414 2 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] NaN -1.083 -0.779 -0.272 1.08 ...</span>
-<span class="co">##  $ qntCI: num [1:90, 1:2] NA 0 0 0.35 2.17 ...</span>
+<span class="co">##  $ mean : Named num [1:90] NaN 0.25 1.62 3.12 5.38 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] NA 0.463 1.598 1.808 2.134 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] NaN -0.657 -1.507 -0.418 1.193 ...</span>
+<span class="co">##  $ qntCI: num [1:90, 1:2] NA 0 0 1 2.35 ...</span>
 <span class="co">## s.num : List of 4</span>
-<span class="co">##  $ mean : Named num [1:90] 2000 1991 1981 1970 1957 ...</span>
-<span class="co">##  $ sd   : Named num [1:90] 0 4.09 5.9 8.21 8.05 ...</span>
-<span class="co">##  $ CI   : num [1:90, 1:2] 2000 1983 1970 1953 1941 ...</span>
-<span class="co">##  $ qntCI: num [1:90, 1:2] 2000 1985 1972 1957 1944 ...</span></pre></body></html></div>
+<span class="co">##  $ mean : Named num [1:90] 2000 1991 1981 1971 1956 ...</span>
+<span class="co">##  $ sd   : Named num [1:90] 0 4.66 7.72 10.66 15.06 ...</span>
+<span class="co">##  $ CI   : num [1:90, 1:2] 2000 1982 1966 1950 1926 ...</span>
+<span class="co">##  $ qntCI: num [1:90, 1:2] 2000 1985 1970 1957 1932 ...</span></pre></body></html></div>
 </div>
 <div id="inspect-baseline-transition-distributions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#inspect-baseline-transition-distributions" class="anchor"></a>Inspect baseline transition distributions</h3>
 <p>The sirplus model controls transitions between compartments, i.e. a change in state for an individual (e.g. going from self-isolation to hospital), using a variety of transition parameters. You can use the <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> functions, and set parameter <code>method</code> as <code>times</code> to examine the distributions of timings for various transitions based on these parameters. In the case of a disease with observed data available, these plots can be used to sanity check parameter settings.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">baseline_sim</span>, <span class="st">"times"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">baseline_sim</span>, <span class="st">"times"</span>)</pre></body></html></div>
 <p><img src="sirplus_intro_v2_files/figure-html/baseline%20sims-1.png" width="700"></p>
 </div>
 <div id="plot-baseline-sirplus-results" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plot-baseline-sirplus-results" class="anchor"></a>Plot baseline sirplus results</h3>
 <p>To visualise your sirplus model, you can plot the change in prevalence (i.e. people) over time in each compartment. By default, this plotting function shows the mean count across all simulations and the 95th quantile in the ribbon. You can hide the CI by setting parameter <code>ci</code> to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">baseline_sim</span>,
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">baseline_sim</span>,
      <span class="kw">start_date</span> <span class="kw">=</span> <span class="kw pkg">lubridate</span><span class="kw ns">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span>(<span class="st">"2020-01-01"</span>),
      <span class="kw">comp_remove</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'s.num'</span>, <span class="st">'r.num'</span>),
      <span class="kw">plot_title</span> <span class="kw">=</span> <span class="st">'Baseline Model'</span>)
@@ -415,7 +454,7 @@
 <li>Experiment #1: One week after the beginning of the epidemic, schools and non-essential businesses are closed to encourage social distancing. This causes the act.rate to gradually drop from 10 to 6 over the course of the next week. In this experiment, we imagine these policies are never lifted, so act.rate remains at 6 for the duration of the simulation.</li>
 <li>Experiment #2: Again, one week after the beginning of the epidemic, social distancing policies are put into place resulting in act.rate dropping from 10 to 6 over the next week. But after two weeks these policies are lifted and the act.rate returns to normal within the next week.</li>
 </ul>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Experiment #1</span>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Experiment #1</span>
 <span class="no">vals</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">7</span>)
 <span class="no">timing</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">7</span>, <span class="fl">14</span>)
 <span class="no">act_rate</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/vary_param.html">vary_param</a></span>(<span class="kw">nstep</span> <span class="kw">=</span> <span class="no">nsteps</span>, <span class="kw">vals</span> <span class="kw">=</span> <span class="no">vals</span>, <span class="kw">timing</span> <span class="kw">=</span> <span class="no">timing</span>)
@@ -452,7 +491,7 @@
 <a href="#a--adding-known-data" class="anchor"></a>A. Adding known data</h3>
 <p>You can use the <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> function to include known compartment values alongside your simulations by supplying the known values as a dataframe to parameter <code>known</code>. This can be helpful when wanting to know how well experiments are simulating the epidemic progression to the point where you have data.</p>
 <p>For example, if we know the hospitalization numbers have been growing exponentially (by 0.2) at each step, we can see how that compares to our experiments.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">known</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="st">'time'</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span>:<span class="fl">30</span>), <span class="st">'h.num'</span> <span class="kw">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="kw">by</span><span class="kw">=</span><span class="fl">0.2</span>)[<span class="fl">1</span>:<span class="fl">30</span>])
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">known</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="st">'time'</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span>:<span class="fl">30</span>), <span class="st">'h.num'</span> <span class="kw">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">10</span>, <span class="kw">by</span><span class="kw">=</span><span class="fl">0.2</span>)[<span class="fl">1</span>:<span class="fl">30</span>])
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"Baseline"</span> <span class="kw">=</span> <span class="no">baseline_sim</span>, <span class="st">"Closures"</span> <span class="kw">=</span> <span class="no">sim_exp</span>,
           <span class="st">"Closures (2 mo)"</span> <span class="kw">=</span> <span class="no">sim_exp_relax</span>), <span class="kw">time_lim</span> <span class="kw">=</span> <span class="fl">45</span>,
@@ -469,7 +508,7 @@
 <h3 class="hasAnchor">
 <a href="#b--plotting-compartment-separately" class="anchor"></a>B. Plotting compartment separately</h3>
 <p>You can use the <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> function to plot counts for each compartment separately by specifying <code>sep_compartments</code> as ‘y’. This can be useful when visualizing compartments on different scales (e.g. i.num v f.num) without using log transformations.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">sim_exp</span>,
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">sim_exp</span>,
      <span class="kw">sep_compartments</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
      <span class="kw">start_date</span> <span class="kw">=</span> <span class="kw pkg">lubridate</span><span class="kw ns">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span>(<span class="st">"2020-01-01"</span>),
      <span class="kw">plot_title</span> <span class="kw">=</span> <span class="st">'Closures Experiment'</span>)
@@ -498,12 +537,24 @@
 <code>time_lim</code>: Number of days (nsteps) to include. Default = 90.</li>
 <li>
 <code>total_population</code>: True population size. This parameter is only needed if the simulation size (s.num) was smaller than the true population size (i.e. scaled down) to reduce computational cost.</li>
+<li>
+<code>sim_population</code>: Size of simulation population. Only needed if providing <code>total_population</code>.</li>
 </ul>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">baseline_sim</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"weekly_local"</span>,
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lubridate</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">baseline_sim</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"weekly_local"</span>,
      <span class="kw">time_lim</span> <span class="kw">=</span> <span class="fl">40</span>,
-     <span class="kw">start_date</span> <span class="kw">=</span> <span class="fu">ymd</span>(<span class="st">"2020-01-01"</span>),
-     <span class="kw">show_start_date</span> <span class="kw">=</span> <span class="fu">ymd</span>(<span class="st">"2020-01-06"</span>),
+     <span class="kw">start_date</span> <span class="kw">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span>(<span class="st">"2020-01-01"</span>),
+     <span class="kw">show_start_date</span> <span class="kw">=</span> <span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span>(<span class="st">"2020-01-06"</span>),
+     <span class="kw">total_population</span> <span class="kw">=</span> <span class="fl">40000</span>,
+     <span class="kw">sim_population</span> <span class="kw">=</span> <span class="no">sim_population</span>,
      <span class="kw">return_df</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="co">## Scalling w.r.t total population  h.num   ci5 ci95</span>
+<span class="co">## 1 1.500 1.000    2</span>
+<span class="co">## 2 1.875 1.000    3</span>
+<span class="co">## 3 2.500 1.175    3</span>
+<span class="co">## 4 2.750 1.000    4</span>
+<span class="co">## 5 3.125 1.175    4</span>
+<span class="co">## 6 4.000 2.175    6</span>
 <span class="co">## $plot</span></pre></body></html></div>
 <p><img src="sirplus_intro_v2_files/figure-html/hospital%20visualization-1.png" width="700"></p>
 <pre><code>## 
@@ -511,12 +562,12 @@
 ## # A tibble: 6 x 7
 ##   yr_wk      h.num h.ci5 h.ci95 icu.num icu.ci5 icu.ci95
 ##   &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2020-01-06  18.8  10.2   27.6    2.09    1.14     3.06
-## 2 2020-01-13  59.4  30.1   90.5    6.6     3.35    10.1 
-## 3 2020-01-20 186.  133.   249.    20.7    14.8     27.6 
-## 4 2020-01-27 346.  306.   394.    38.4    34.0     43.7 
-## 5 2020-02-03 371.  327.   429.    41.3    36.3     47.7 
-## 6 2020-02-10  45.8  41.6   51.3    5.09    4.62     5.7</code></pre>
+## 1 2020-01-06  367.  187.   513.    40.8    20.8     57.1
+## 2 2020-01-13 1189.  400.  1658.   132.     44.5    184. 
+## 3 2020-01-20 3527. 2143.  4352.   392.    238.     484. 
+## 4 2020-01-27 6497. 5082.  7425.   722.    565.     825. 
+## 5 2020-02-03 7265. 6015.  8304.   807.    668.     923. 
+## 6 2020-02-10  977.  790.  1152.   109.     87.8    128.</code></pre>
 </div>
 </div>
   </div>
@@ -532,7 +583,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Puxue Qiao, Christina Azodi, Ruqian Lyu, Sam Tanner, Tim Churches, Davis McCarthy.</p>
+  <p>Developed by Puxue Qiao, Christina Azodi, Tim Churches, Davis McCarthy.</p>
 </div>
 
 <div class="pkgdown">

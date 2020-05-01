@@ -103,6 +103,8 @@
 #'     fat.rand for details.
 #' @param vital Enables demographics, that is, arrivals and
 #'     departures, to and from the simulated population.
+#' @param flare.inf.point (Either a vector or a scalar) Time points where there is a sudden arrival of I's. 
+#' @param flare.inf.num (same dimension as flare.inf.point) The number of I's arriving at the specified time points in flare.inf.point.
 #' @param a.rate Background demographic arrival rate. Currently all
 #'     arrivals go into the S compartment, the default is approximately the
 #'     daily birth rate for Australia. Will be extended to cover immigration in
@@ -190,6 +192,8 @@ param_seiqhrf <- function(inf.prob.e = 0.02,
                           fat.rate.overcap = 1/25,
                           fat.tcoeff = 0.5,
                           vital = TRUE,
+                          flare.inf.point = NULL, 
+                          flare.inf.num = NULL, 
                           a.rate = (10.5/365)/1000,
                           a.prop.e = 0.01,
                           a.prop.i = 0.001,

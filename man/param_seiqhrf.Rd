@@ -34,6 +34,8 @@ param_seiqhrf(
   fat.rate.overcap = 1/25,
   fat.tcoeff = 0.5,
   vital = TRUE,
+  flare.inf.point = NULL,
+  flare.inf.num = NULL,
   a.rate = (10.5/365)/1000,
   a.prop.e = 0.01,
   a.prop.i = 0.001,
@@ -177,6 +179,10 @@ fat.rand for details.}
 
 \item{vital}{Enables demographics, that is, arrivals and
 departures, to and from the simulated population.}
+
+\item{flare.inf.point}{(Either a vector or a scalar) Time points where there is a sudden arrival of I's.}
+
+\item{flare.inf.num}{(same dimension as flare.inf.point) The number of I's arriving at the specified time points in flare.inf.point.}
 
 \item{a.rate}{Background demographic arrival rate. Currently all
 arrivals go into the S compartment, the default is approximately the

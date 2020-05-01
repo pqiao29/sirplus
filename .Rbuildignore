@@ -1,0 +1,15 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.travis\.yml$
+^codecov\.yml$
+^appveyor\.yml$
+^NEWS\.md$
+^\.git*
+^docs$
+^public$
+^index\.md$
+^_pkgdown\.yml$
+^pkgdown$
+^doc$
+^Meta$
+^\.vscode

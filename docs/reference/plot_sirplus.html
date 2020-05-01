@@ -75,7 +75,7 @@ adding 95% CIs, and plotting known data along side the simulations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sirplus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -141,6 +141,8 @@ adding 95% CIs, and plotting known data along side the simulations.</p>
   <span class='no'>start_date</span>,
   <span class='no'>x_axis</span>,
   <span class='no'>plot_title</span>,
+  <span class='no'>sim_population</span>,
+  <span class='no'>total_population</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -184,11 +186,21 @@ projections</p></td>
     </tr>
     <tr>
       <th>x_axis</th>
-      <td><p>Title for x-axis. Default: 'Days since beginning of epidemic'</p></td>
+      <td><p>Title for x-axis. Default: 'Date (MM-DD)'</p></td>
     </tr>
     <tr>
       <th>plot_title</th>
-      <td><p>Title for whole plot. Default: 'SEIQHRF plot'</p></td>
+      <td><p>Title for whole plot. Default: ''</p></td>
+    </tr>
+    <tr>
+      <th>sim_population</th>
+      <td><p>Size of population simulated. Only needed if providing 
+`total_population`.</p></td>
+    </tr>
+    <tr>
+      <th>total_population</th>
+      <td><p>True population size, needed only if simulation size 
+is smaller than the true population size due to computational cost</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -211,7 +223,7 @@ projections</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Puxue Qiao, Christina Azodi, Ruqian Lyu, Sam Tanner, Tim Churches, Davis McCarthy.</p>
+  <p>Developed by Puxue Qiao, Christina Azodi, Tim Churches, Davis McCarthy.</p>
 </div>
 
 <div class="pkgdown">

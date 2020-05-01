@@ -13,8 +13,10 @@
   trans = FALSE,
   known = NULL,
   start_date = ymd("2020-03-21"),
-  x_axis = "Days since beginning of epidemic",
-  plot_title = "SEIQHRF",
+  x_axis = "Date (MM-DD)",
+  plot_title = "",
+  sim_population = 1000,
+  total_population = NULL,
   ...
 )
 }
@@ -37,9 +39,17 @@ projections}
 
 \item{start_date}{Date for day 0. Default: ymd("2020-03-21"),}
 
-\item{x_axis}{Title for x-axis. Default: 'Days since beginning of epidemic'}
+\item{x_axis}{Title for x-axis. Default: 'Date (MM-DD)'}
 
-\item{plot_title}{Title for whole plot. Default: 'SEIQHRF plot'}
+\item{plot_title}{Title for whole plot. Default: ''
+total_population}
+
+\item{sim_population}{Size of population simulated. Only needed if providing 
+`total_population`.}
+
+\item{total_population}{True population size, needed only if simulation size 
+is smaller than the true population size due to computational cost 
+etc.}
 
 \item{...}{Additional parameters}
 }

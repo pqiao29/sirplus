@@ -56,6 +56,13 @@ crosscheck_seiqhrf <- function(param, init, control) {
         }
     }
     
+        ## Check flare parameters 
+    if(!is.null(param$flare.inf.point)){
+        if(length(param$flare.inf.point) != length(param$flare.inf.num)) stop("flare.inf.point and flare.inf.num must have the same length!")
+        if(max(param$flare.inf.point) > control$nsteps) stop("flare.inf.point can not exceed the total time points: nsteps!")
+        if(min(param$flare.inf.point) <= 2) stop("flare.inf.point should all be larger than 2, please change the initial i.num if flare time point needs to be smaller than 2")
+        
+    }
     ## In-place assignment to update param and control
     on.exit(assign("param", param, pos = parent.frame()))
     on.exit(assign("control", control, pos = parent.frame()), add = TRUE)

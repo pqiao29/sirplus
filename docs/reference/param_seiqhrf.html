@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sirplus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -156,6 +156,8 @@
   <span class='kw'>fat.rate.overcap</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>25</span>,
   <span class='kw'>fat.tcoeff</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>vital</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>flare.inf.point</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>flare.inf.num</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>a.rate</span> <span class='kw'>=</span> (<span class='fl'>10.5</span>/<span class='fl'>365</span>)/<span class='fl'>1000</span>,
   <span class='kw'>a.prop.e</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
   <span class='kw'>a.prop.i</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
@@ -361,6 +363,14 @@ fat.rand for details.</p></td>
 departures, to and from the simulated population.</p></td>
     </tr>
     <tr>
+      <th>flare.inf.point</th>
+      <td><p>(Either a vector or a scalar) Time points where there is a sudden arrival of I's.</p></td>
+    </tr>
+    <tr>
+      <th>flare.inf.num</th>
+      <td><p>(same dimension as flare.inf.point) The number of I's arriving at the specified time points in flare.inf.point.</p></td>
+    </tr>
+    <tr>
       <th>a.rate</th>
       <td><p>Background demographic arrival rate. Currently all
 arrivals go into the S compartment, the default is approximately the
@@ -461,7 +471,7 @@ parameter validity, these checks are the user's responsibility with new modules.
 
       <footer>
       <div class="copyright">
-  <p>Developed by Puxue Qiao, Christina Azodi, Ruqian Lyu, Sam Tanner, Tim Churches, Davis McCarthy.</p>
+  <p>Developed by Puxue Qiao, Christina Azodi, Tim Churches, Davis McCarthy.</p>
 </div>
 
 <div class="pkgdown">

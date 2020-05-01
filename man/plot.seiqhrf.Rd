@@ -15,11 +15,12 @@
   known = NULL,
   start_date = ymd("2020-03-21"),
   show_start_date = FALSE,
-  x_axis = "Days since beginning of epidemic",
-  plot_title = "SEIQHRF",
+  x_axis = "Date (MM-DD)",
+  plot_title = "",
   return_df = TRUE,
   market.share = 0.04,
   icu_percent = 0.1,
+  sim_population = 1000,
   total_population = NULL,
   ...
 )
@@ -50,9 +51,9 @@ projections}
 \item{show_start_date}{First date to show in plots. Use ymd format. If FALSE,
 shows from step 1. Default: FALSE}
 
-\item{x_axis}{Title for x-axis. Default: 'Days since beginning of epidemic'}
+\item{x_axis}{Title for x-axis. Default: 'Date (MM-DD)'}
 
-\item{plot_title}{Title for whole plot. Default: 'SEIQHRF plot'}
+\item{plot_title}{Title for whole plot. Default: ''}
 
 \item{return_df}{In effect only when method == "weekly", if TRUE returns 
 also the dataframe used for plotting as well as the ggplot object.}
@@ -62,6 +63,9 @@ the simulated unit (e.g. state)}
 
 \item{icu_percent}{between 0 and 1, percentage of patients that should go to 
 ICU among the ones that need hospitalization}
+
+\item{sim_population}{Size of population simulated. Only needed if providing 
+`total_population`.}
 
 \item{total_population}{True population size, needed only if simulation size 
 is smaller than the true population size due to computational cost 

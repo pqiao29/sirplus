@@ -11,6 +11,7 @@ get_weekly_local(
   start_date = start_date,
   show_start_date = show_start_date,
   time_limit = time_limit,
+  sim_population = sim_population,
   total_population = total_population
 )
 }
@@ -31,6 +32,9 @@ week.}
 shows from step 1. Default: FALSE}
 
 \item{time_limit}{Number of days to include. Default = 90.}
+
+\item{sim_population}{Size of population simulated. Only needed if providing 
+`total_population`.}
 
 \item{total_population}{True population size, needed only if simulation size 
 is smaller than the true population size due to computational cost 

@@ -17,12 +17,14 @@
 #' @param start_date Date for day 0. Default: ymd("2020-03-21"),
 #' @param show_start_date First date to show in plots. Use ymd format. If FALSE,
 #'        shows from step 1. Default: FALSE
-#' @param x_axis Title for x-axis. Default: 'Days since beginning of epidemic'
-#' @param plot_title Title for whole plot. Default: 'SEIQHRF plot'
+#' @param x_axis Title for x-axis. Default: 'Date (MM-DD)'
+#' @param plot_title Title for whole plot. Default: ''
 #' @param market.share between 0 and 1, percentage of local hospital beds in 
 #'        the simulated unit (e.g. state)
 #' @param icu_percent between 0 and 1, percentage of patients that should go to 
 #'        ICU among the ones that need hospitalization
+#' @param sim_population Size of population simulated. Only needed if providing 
+#'        `total_population`.
 #' @param total_population True population size, needed only if simulation size 
 #'        is smaller than the true population size due to computational cost 
 #'        etc.
@@ -45,11 +47,12 @@ plot.seiqhrf <- function(x, method = NULL,
                          known = NULL,
                          start_date = ymd("2020-03-21"),
                          show_start_date = FALSE,
-                         x_axis = 'Days since beginning of epidemic',
-                         plot_title = 'SEIQHRF', 
+                         x_axis = 'Date (MM-DD)',
+                         plot_title = '', 
                          return_df = TRUE, 
                          market.share = .04,
                          icu_percent = .1, 
+                         sim_population = 1000,
                          total_population = NULL, ...) {
     
     if(is.null(method)){
@@ -61,7 +64,9 @@ plot.seiqhrf <- function(x, method = NULL,
                      known = known,
                      start_date = start_date,
                      x_axis = x_axis,
-                     plot_title = plot_title)
+                     plot_title = plot_title,
+                     sim_population = sim_population,
+                     total_population = total_population)
         
     }else if(method == "times"){
         
@@ -76,6 +81,7 @@ plot.seiqhrf <- function(x, method = NULL,
                                     start_date = start_date,
                                     show_start_date = show_start_date,
                                     time_limit = time_limit,
+                                    sim_population = sim_population,
                                     total_population = total_population)
              if(return_df){
                  return(ret) 
@@ -97,8 +103,14 @@ plot.seiqhrf <- function(x, method = NULL,
 #' @param known Dataframe with known compartment numbers to plot alongside
 #'        projections
 #' @param start_date Date for day 0. Default: ymd("2020-03-21"),
-#' @param x_axis Title for x-axis. Default: 'Days since beginning of epidemic'
-#' @param plot_title Title for whole plot. Default: 'SEIQHRF plot'
+#' @param x_axis Title for x-axis. Default: 'Date (MM-DD)'
+#' @param plot_title Title for whole plot. Default: ''
+#' total_population
+#' @param sim_population Size of population simulated. Only needed if providing 
+#'        `total_population`.
+#' @param total_population True population size, needed only if simulation size 
+#'        is smaller than the true population size due to computational cost 
+#'        etc.
 #' @param ... Additional parameters
 #' 
 #' @importFrom tidyr pivot_longer
@@ -116,8 +128,10 @@ plot.list <- function(x, comp_remove = "none",
                       trans = FALSE,
                       known = NULL,
                       start_date = ymd("2020-03-21"),
-                      x_axis = 'Days since beginning of epidemic',
-                      plot_title = 'SEIQHRF', ...){
+                      x_axis = 'Date (MM-DD)',
+                      plot_title = '',
+                      sim_population = 1000,
+                      total_population = NULL, ...){
     
     plot_sirplus(x, comp_remove = comp_remove,
                  time_limit = time_limit,
@@ -127,7 +141,9 @@ plot.list <- function(x, comp_remove = "none",
                  known = known,
                  start_date = start_date,
                  x_axis = x_axis,
-                 plot_title = plot_title)
+                 plot_title = plot_title,
+                 sim_population = sim_population,
+                 total_population = total_population)
 }
 
 
@@ -151,8 +167,12 @@ plot.list <- function(x, comp_remove = "none",
 #' @param known Dataframe with known compartment numbers to plot alongside
 #'        projections
 #' @param start_date Date for day 0. Default: ymd("2020-03-21"),
-#' @param x_axis Title for x-axis. Default: 'Days since beginning of epidemic'
-#' @param plot_title Title for whole plot. Default: 'SEIQHRF plot'
+#' @param x_axis Title for x-axis. Default: 'Date (MM-DD)'
+#' @param plot_title Title for whole plot. Default: ''
+#' @param sim_population Size of population simulated. Only needed if providing 
+#'        `total_population`.
+#' @param total_population True population size, needed only if simulation size 
+#'        is smaller than the true population size due to computational cost 
 #' @param ... Additional parameters
 #' 
 #' @return ggplot2 object
@@ -172,7 +192,9 @@ plot_sirplus <- function(x, comp_remove,
                          known,
                          start_date,
                          x_axis,
-                         plot_title, ...){
+                         plot_title,
+                         sim_population,
+                         total_population,...){
     
     # Convert from seiqhrf object to dataframe
     plot_df <- format_sims(x, time_limit = time_limit, start_date = start_date)
@@ -182,6 +204,22 @@ plot_sirplus <- function(x, comp_remove,
     if(ci){
         plot_df <- get_ci(x, plot_df)
     }
+    
+    # Scale up to full population size if needed
+    if(!is.null(total_population)){
+      if(total_population < sim_population) 
+        stop("total population should be larger than simulated size")
+      
+      scale_factor <- total_population/sim_population
+      plot_df <- plot_df %>% mutate(count = count * scale_factor)
+      
+      if(ci){
+        plot_df <- plot_df %>% mutate(CI.1 = count * scale_factor,
+                                      CI.2 = CI.2 * scale_factor,
+                                      qntCI.1 = qntCI.1 * scale_factor,
+                                      qntCI.2 = qntCI.2 * scale_factor)
+      }
+    } 
     
     # Add known compartment counts
     if(is.data.frame(known)){
@@ -202,7 +240,7 @@ plot_sirplus <- function(x, comp_remove,
     comp_plot <- setdiff(comps, comp_remove)
     plot_df <- plot_df %>% filter(compartment %in% c(comp_plot)) %>%
       filter(time <= time_limit)
-
+  
     # Plot with options
     p <- ggplot(plot_df, aes(x = Date, y = count, colour = compartment, 
                              linetype = sim)) + 
@@ -310,6 +348,8 @@ plot_times <- function(sim) {
 #' @param show_start_date First date to show in plots. Use ymd format. If FALSE,
 #'        shows from step 1. Default: FALSE
 #' @param time_limit Number of days to include. Default = 90.
+#' @param sim_population Size of population simulated. Only needed if providing 
+#'        `total_population`.
 #' @param total_population True population size, needed only if simulation size 
 #'        is smaller than the true population size due to computational cost 
 #'        etc.
@@ -335,6 +375,7 @@ get_weekly_local <- function(sim,
                              start_date = start_date,
                              show_start_date = show_start_date,
                              time_limit = time_limit,
+                             sim_population = sim_population,
                              total_population = total_population){
 
     # Get h.num and 95% quantile CIs
@@ -352,10 +393,14 @@ get_weekly_local <- function(sim,
     
     # Scale for population size and hospital market share if needed
     if(!is.null(total_population)){
-        if(total_population < max(sim_mean$s.num)) 
+        if(total_population < sim_population) 
             stop("total Population should be larger than simulated size")
         cat("Scalling w.r.t total population")
-        hosp <- hosp*total_population/max(sim_mean$s.num)
+        date_tmp <- hosp$date
+        hosp$date <- NULL
+        print(head(hosp))
+        hosp <- hosp*total_population/sim_population
+        hosp$date <- date_tmp
     } 
     
     if(market.share < 0 || market.share > 1) stop("Market share has to be between 
@@ -380,10 +425,11 @@ get_weekly_local <- function(sim,
         pivot_wider(names_from = metric, values_from = val)
 
     p <- ggplot(hosp.wk2, aes(x = yr_wk, y = num, color = type)) +
-        geom_point() + theme_bw() +
-        labs(y="Weekly Cumulative Count", x = "Week (Monday)") +
-        geom_errorbar(aes(ymin=ci5, ymax=ci95),size=0.5, width=.25) +
-        scale_fill_discrete(name = "Type", labels = c("General", "ICU"))
+        geom_point() + 
+        labs(y="Weekly Cumulative Count", x = "Week Start (Monday: YYYY-MM-DD)") +
+        geom_errorbar(aes(ymin=ci5, ymax=ci95), size=0.5, width=.25) +
+        scale_color_discrete(name = "Type", labels = c("General", "ICU")) + 
+        theme_bw() + theme(axis.text.x = element_text(angle = 90))
     
     return(list("plot" = p, "result" = hosp.wk))
     
@@ -426,7 +472,9 @@ format_sims <- function(x, time_limit, start_date){
     plot_df <- plot_df %>% filter(time <= time_limit) %>% 
         pivot_longer(-c(time, experiment),
                      names_to = "compartment", 
-                     values_to = "count") %>%
+                     values_to = "count", 
+                     values_ptypes = list(compartment = 'character',
+                                          count = numeric())) %>%
         mutate(sim = 'sim',
                Date = start_date + time)
 
@@ -454,7 +502,9 @@ get_ci <- function(x, plot_df){
         ci_info <- as.data.frame.list(summary.seiqhrf(x))
         ci_info <- ci_info %>% mutate(time = as.numeric(row.names(ci_info))) %>%
             pivot_longer(cols = -time, names_to = 'compartment',
-                         values_to = 'mean') %>%
+                         values_to = 'mean', 
+                         values_ptypes = list(compartment = 'character',
+                                              mean = numeric())) %>%
             tidyr::separate(compartment, into = c('compartment', 'metric'), 
                             sep='num.') %>%
             mutate(compartment = paste0(compartment, 'num'),
@@ -468,7 +518,9 @@ get_ci <- function(x, plot_df){
         ci_info <- ci_info %>% 
             mutate(time =  as.numeric(row.names(ci_info))) %>%
             pivot_longer(cols = -time, names_to = 'compartment',
-                         values_to = 'mean') %>%
+                         values_to = 'mean',
+                         values_ptypes = list(compartment = 'character',
+                                              mean = numeric())) %>%
             tidyr::separate(compartment, into = c('compartment', 'metric'), 
                             sep='num.') %>%
             mutate(compartment = paste0(compartment, 'num'),
@@ -482,7 +534,9 @@ get_ci <- function(x, plot_df){
                 ci_tmp <- ci_tmp %>% 
                     mutate(time = as.numeric(row.names(ci_tmp))) %>%
                     pivot_longer(cols = -time, names_to = 'compartment',
-                                 values_to = 'mean') %>%
+                                 values_to = 'mean',
+                                 values_ptypes = list(compartment = 'character',
+                                                      mean = numeric())) %>%
                     tidyr::separate(compartment, 
                                     into = c('compartment', 'metric'), 
                                     sep='num.') %>%
@@ -526,7 +580,9 @@ add_known <- function(plot_df, known, start_date){
     
     known <- known %>% pivot_longer(cols = -c(time, Date), 
                                     names_to = 'compartment',
-                                    values_to = 'count')
+                                    values_to = 'count',
+                                    values_ptypes = list(compartment = 'character',
+                                                         count = numeric()))
     exps <- unique(plot_df$experiment)
     for(i in exps){
         known <- known %>% mutate(experiment = i, sim = 'known')

@@ -1,23 +1,23 @@
 Package: sirplus
 Type: Package
 Title: Using stochastic individual compartment models (ICMs) to simulate COVID-19 spread
-Version: 0.2.0
+Version: 0.2.2
 Date: 2020-03-29
 Authors@R:
-    c(person("Puxue", "Qiao", role = c("aut"),
+    c(person("Puxue", "Qiao", role = c("aut", "cre"),
       email = "pqiao@svi.edu.au", 
       comment = c(ORCID = "0000-0002-1521-9086")),
       person("Christina", "Azodi", role = c("aut"),
       email = "cazodi@svi.edu.au",
       comment = c(ORCID = "0000-0002-6097-606X")),
-      person("Ruqian", "Lyu", role = c("aut"),
+      person("Ruqian", "Lyu", role = c("ctb"),
       email = "rlyu@svi.edu.au",
       comment = c(ORCID = "0000-0002-7736-6612")),
-      person("Sam", "Tanner", role = c("aut"),
+      person("Sam", "Tanner", role = c("ctb"),
       email = "stanner@svi.edu.au", 
       comment = c(ORCID = "0000-0001-9197-6970")),
       person("Tim", "Churches", role = c("aut")),
-      person("Davis", "McCarthy", role = c("aut", "cre"),
+      person("Davis", "McCarthy", role = c("aut"),
       email = "dmccarthy@svi.edu.au",
       comment = c(ORCID = "0000-0002-2218-6833")))
 Description: sirplus is a package for the modeling of COVID-19 spread with extensions to the classical Susceptible-Infectious-Recovered (SIR) model, using 

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sirplus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -131,6 +131,7 @@
   <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='no'>start_date</span>,
   <span class='kw'>show_start_date</span> <span class='kw'>=</span> <span class='no'>show_start_date</span>,
   <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='no'>time_limit</span>,
+  <span class='kw'>sim_population</span> <span class='kw'>=</span> <span class='no'>sim_population</span>,
   <span class='kw'>total_population</span> <span class='kw'>=</span> <span class='no'>total_population</span>
 )</pre>
 
@@ -167,6 +168,11 @@ shows from step 1. Default: FALSE</p></td>
       <td><p>Number of days to include. Default = 90.</p></td>
     </tr>
     <tr>
+      <th>sim_population</th>
+      <td><p>Size of population simulated. Only needed if providing 
+`total_population`.</p></td>
+    </tr>
+    <tr>
       <th>total_population</th>
       <td><p>True population size, needed only if simulation size 
 is smaller than the true population size due to computational cost 
@@ -198,7 +204,7 @@ etc.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Puxue Qiao, Christina Azodi, Ruqian Lyu, Sam Tanner, Tim Churches, Davis McCarthy.</p>
+  <p>Developed by Puxue Qiao, Christina Azodi, Tim Churches, Davis McCarthy.</p>
 </div>
 
 <div class="pkgdown">
