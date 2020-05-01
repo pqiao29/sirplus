@@ -12,4 +12,4 @@ library(sirplus)
 browseVignettes("sirplus")  
 ```
 
-To view the vignette of the package, visit [the package website](https://biocellgen-private.svi.edu.au/sirplus/public/)
+To view the vignette of the package, visit [the package website](https://pqiao29.github.io/sirplus/)
