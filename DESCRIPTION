@@ -43,9 +43,10 @@ Suggests:
     knitr,
     magick,
     rmarkdown,
-    spelling, 
-    testthat, 
-    devtools
+    spelling,
+    testthat,
+    devtools,
+    covr
 biocViews: Epidemiology, Software
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
