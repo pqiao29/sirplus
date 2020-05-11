@@ -1,6 +1,6 @@
 test_that("Identical output as Churches' original function: recovery.FUN", {
     
-    control <- control_seiqhrf()
+    control <- control_seiqhrf(rec.rand = TRUE)
     param <- param_seiqhrf(arec.rate = 0, rec.rate = 0)
     init <- init_seiqhrf()
     
