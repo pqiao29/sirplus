@@ -5,7 +5,7 @@
 \title{Plot models}
 \usage{
 plot_models(
-  sims = baseline_sim,
+  sims,
   sim_id = "baseline",
   comp_remove = "none",
   time_lim = 100,

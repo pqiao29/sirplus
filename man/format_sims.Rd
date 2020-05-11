@@ -11,7 +11,7 @@ format_sims(x, time_limit, start_date)
 
 \item{time_limit}{Number of steps (days) to plot.}
 
-\item{start_date}{Date for day 0. Default: ymd("2020-03-21"),}
+\item{start_date}{Date for day 0.}
 }
 \value{
 dataframe

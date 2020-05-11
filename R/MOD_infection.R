@@ -53,13 +53,15 @@ infection.FUN <- function(dat, at, seed = NULL){
     nsteps <- dat$control$nsteps
     
     ## Extract param
-    param_list <- c("act.rate.i", "inf.prob.i")
-    if(type %in% c("SEIQHR", "SEIQHRF")) param_list <- c(param_list, 
-                                                         "quar.rate", "disch.rate", "act.rate.e",
-                                                         "inf.prob.e", "act.rate.q", "inf.prob.q")
-    check_idx <- which(names(dat$param) %in% param_list)
-    for(i in check_idx){
-        assign(names(dat$param)[i], dat$param[[i]])
+    act.rate.i <- dat$param$act.rate.i
+    inf.prob.i <- dat$param$inf.prob.i
+    if(type %in% c("SEIQHR", "SEIQHRF")){
+        quar.rate <- dat$param$quar.rate
+        disch.rate <- dat$param$disch.rate
+        act.rate.e <- dat$param$act.rate.e
+        act.rate.q <- dat$param$act.rate.q
+        inf.prob.e <- dat$param$inf.prob.e
+        inf.prob.q <- dat$param$inf.prob.q
     }
     
     # Transmission from infected (a)

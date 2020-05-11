@@ -41,19 +41,19 @@ If NULL, plot sirplus plots.}
 \item{sep_compartments}{T/F use faceting to show each compartment in a 
 separate plot, only works if plotting a single simulation.}
 
-\item{trans}{Y-axis transformation (e.g. log2, log10). Default = none.}
+\item{trans}{Y-axis transformation (e.g. log2, log10).}
 
 \item{known}{Dataframe with known compartment numbers to plot alongside
 projections}
 
-\item{start_date}{Date for day 0. Default: ymd("2020-03-21"),}
+\item{start_date}{Date for day 0.}
 
 \item{show_start_date}{First date to show in plots. Use ymd format. If FALSE,
-shows from step 1. Default: FALSE}
+shows from step 1.}
 
-\item{x_axis}{Title for x-axis. Default: 'Date (MM-DD)'}
+\item{x_axis}{Title for x-axis.}
 
-\item{plot_title}{Title for whole plot. Default: ''}
+\item{plot_title}{Title for whole plot.}
 
 \item{return_df}{In effect only when method == "weekly", if TRUE returns 
 also the dataframe used for plotting as well as the ggplot object.}

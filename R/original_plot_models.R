@@ -17,7 +17,7 @@
 #' 
 #' @importFrom tidyr pivot_longer
 
-plot_models <- function(sims = baseline_sim,
+plot_models <- function(sims,
                         sim_id = "baseline",
                         comp_remove = "none",
                         time_lim = 100,

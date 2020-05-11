@@ -11,14 +11,14 @@
 #' @param ci T/F to include 95\% confidence intervals in sirplus plot.
 #' @param sep_compartments T/F use faceting to show each compartment in a 
 #'        separate plot, only works if plotting a single simulation.
-#' @param trans Y-axis transformation (e.g. log2, log10). Default = none. 
+#' @param trans Y-axis transformation (e.g. log2, log10). 
 #' @param known Dataframe with known compartment numbers to plot alongside
 #'        projections
-#' @param start_date Date for day 0. Default: ymd("2020-03-21"),
+#' @param start_date Date for day 0. 
 #' @param show_start_date First date to show in plots. Use ymd format. If FALSE,
-#'        shows from step 1. Default: FALSE
-#' @param x_axis Title for x-axis. Default: 'Date (MM-DD)'
-#' @param plot_title Title for whole plot. Default: ''
+#'        shows from step 1. 
+#' @param x_axis Title for x-axis. 
+#' @param plot_title Title for whole plot. 
 #' @param market.share between 0 and 1, percentage of local hospital beds in 
 #'        the simulated unit (e.g. state)
 #' @param icu_percent between 0 and 1, percentage of patients that should go to 
@@ -99,12 +99,12 @@ plot.seiqhrf <- function(x, method = NULL,
 #' @param ci T/F to include 95\% confidence intervals in sirplus plot.
 #' @param sep_compartments T/F use faceting to show each compartment in a 
 #'        separate plot, only works if plotting a single simulation.
-#' @param trans Y-axis transformation (e.g. log2, log10). Default = none. 
+#' @param trans Y-axis transformation (e.g. log2, log10).  
 #' @param known Dataframe with known compartment numbers to plot alongside
 #'        projections
-#' @param start_date Date for day 0. Default: ymd("2020-03-21"),
-#' @param x_axis Title for x-axis. Default: 'Date (MM-DD)'
-#' @param plot_title Title for whole plot. Default: ''
+#' @param start_date Date for day 0. 
+#' @param x_axis Title for x-axis. 
+#' @param plot_title Title for whole plot. 
 #' total_population
 #' @param sim_population Size of population simulated. Only needed if providing 
 #'        `total_population`.
@@ -163,12 +163,12 @@ plot.list <- function(x, comp_remove = "none",
 #' @param ci T/F to include 95\% confidence intervals in sirplus plot.
 #' @param sep_compartments T/F use faceting to show each compartment in a 
 #'        separate plot, only works if plotting a single simulation.
-#' @param trans Y-axis transformation (e.g. log2, log10). Default = none. 
+#' @param trans Y-axis transformation (e.g. log2, log10). 
 #' @param known Dataframe with known compartment numbers to plot alongside
 #'        projections
-#' @param start_date Date for day 0. Default: ymd("2020-03-21"),
-#' @param x_axis Title for x-axis. Default: 'Date (MM-DD)'
-#' @param plot_title Title for whole plot. Default: ''
+#' @param start_date Date for day 0. 
+#' @param x_axis Title for x-axis. 
+#' @param plot_title Title for whole plot. 
 #' @param sim_population Size of population simulated. Only needed if providing 
 #'        `total_population`.
 #' @param total_population True population size, needed only if simulation size 
@@ -346,8 +346,8 @@ plot_times <- function(sim) {
 #'        plot week numbers, if provided will plot the first day (Sunday) of the
 #'        week.
 #' @param show_start_date First date to show in plots. Use ymd format. If FALSE,
-#'        shows from step 1. Default: FALSE
-#' @param time_limit Number of days to include. Default = 90.
+#'        shows from step 1.
+#' @param time_limit Number of days to include. 
 #' @param sim_population Size of population simulated. Only needed if providing 
 #'        `total_population`.
 #' @param total_population True population size, needed only if simulation size 
@@ -368,15 +368,16 @@ plot_times <- function(sim) {
 #' @importFrom tidyr pivot_wider
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
+#' @importFrom utils head
 #' @export
 get_weekly_local <- function(sim, 
-                             market.share = market.share,
-                             icu_percent = icu_percent, 
-                             start_date = start_date,
-                             show_start_date = show_start_date,
-                             time_limit = time_limit,
-                             sim_population = sim_population,
-                             total_population = total_population){
+                             market.share,
+                             icu_percent, 
+                             start_date,
+                             show_start_date,
+                             time_limit,
+                             sim_population,
+                             total_population){
 
     # Get h.num and 95% quantile CIs
     sim_mean <- as.data.frame(sim, out = "mean")
@@ -398,7 +399,7 @@ get_weekly_local <- function(sim,
         cat("Scalling w.r.t total population")
         date_tmp <- hosp$date
         hosp$date <- NULL
-        print(head(hosp))
+        print(utils::head(hosp))
         hosp <- hosp*total_population/sim_population
         hosp$date <- date_tmp
     } 
@@ -410,7 +411,7 @@ get_weekly_local <- function(sim,
     
     # Get weekly sums & calculate projected icu numbers
     hosp.wk <- hosp %>% group_by(yr_wk = cut(date, "week", start.on.monday = TRUE)) %>% 
-        summarise(h.num=sum(h.num), h.ci5=sum(ci5), h.ci95=sum(ci95)) %>%
+        summarise(h.num = sum(h.num), h.ci5 = sum(ci5), h.ci95=sum(ci95)) %>%
         mutate(icu.num = h.num * icu_percent,
                icu.ci5 = h.ci5 * icu_percent,
                icu.ci95 = h.ci95 * icu_percent) %>%
@@ -441,7 +442,7 @@ get_weekly_local <- function(sim,
 #'
 #' @param x An seiqhrf object returned from function \code{\link{seiqhrf}}.
 #' @param time_limit Number of steps (days) to plot. 
-#' @param start_date Date for day 0. Default: ymd("2020-03-21"),
+#' @param start_date Date for day 0. 
 #' 
 #' @return dataframe
 #' 
@@ -481,10 +482,32 @@ format_sims <- function(x, time_limit, start_date){
     return(plot_df)
 }
 
+#' Internal
+#' @param obj An seiqhrf object
+#' @param exp_name Name of experiment 
+
+ci_info_update <- function(obj, exp_name = "seiqhrf model"){  
+  
+  ci_tmp <- as.data.frame.list(summary(obj))
+  ci_tmp <- ci_tmp %>% 
+    mutate(time = as.numeric(row.names(ci_tmp))) %>%
+    pivot_longer(cols = -time, names_to = 'compartment',
+                 values_to = 'mean',
+                 values_ptypes = list(compartment = 'character',
+                                      mean = numeric())) %>%
+    tidyr::separate(compartment, 
+                    into = c('compartment', 'metric'), 
+                    sep='num.') %>%
+    mutate(compartment = paste0(compartment, 'num'),
+           experiment = exp_name) %>%
+    pivot_wider(names_from = metric, values_from = mean) 
+  
+  ci_tmp
+}
 
 #' Get 95\% confidence intervals
 #'
-#' @param x An seiqhrf object returned from function \code{\link{seiqhrf}}.
+#' @param x An seiqhrf object returned from function \code{\link{seiqhrf}} or a list of seiqhrf objects.
 #' @param plot_df Dataframe with known compartment numbers to plot alongside
 #'        projections
 #' 
@@ -495,67 +518,32 @@ format_sims <- function(x, time_limit, start_date){
 #' @export
 #' 
 get_ci <- function(x, plot_df){
+  
+  # Get sim variance metrics for single seiqhrf object
+  if(class(x) == "seiqhrf"){
+    ci_info <- ci_info_update(x)
+  }else{
     
-    # Get sim variance metrics for single seiqhrf object
-    if(class(x) == "seiqhrf"){
-        
-        ci_info <- as.data.frame.list(summary.seiqhrf(x))
-        ci_info <- ci_info %>% mutate(time = as.numeric(row.names(ci_info))) %>%
-            pivot_longer(cols = -time, names_to = 'compartment',
-                         values_to = 'mean', 
-                         values_ptypes = list(compartment = 'character',
-                                              mean = numeric())) %>%
-            tidyr::separate(compartment, into = c('compartment', 'metric'), 
-                            sep='num.') %>%
-            mutate(compartment = paste0(compartment, 'num'),
-                   experiment = 'seiqhrf model') %>%
-            pivot_wider(names_from = metric, values_from = mean)
-        
-    }else{
-        
-        sim_id <- names(x)
-        ci_info <- as.data.frame.list(summary.seiqhrf(x[[1]]))
-        ci_info <- ci_info %>% 
-            mutate(time =  as.numeric(row.names(ci_info))) %>%
-            pivot_longer(cols = -time, names_to = 'compartment',
-                         values_to = 'mean',
-                         values_ptypes = list(compartment = 'character',
-                                              mean = numeric())) %>%
-            tidyr::separate(compartment, into = c('compartment', 'metric'), 
-                            sep='num.') %>%
-            mutate(compartment = paste0(compartment, 'num'),
-                   experiment = sim_id[1]) %>%
-            pivot_wider(names_from = metric, values_from = mean) 
-
-        if(length(sim_id) > 1){
-            for (i in (2:length(sim_id))) {
-                
-                ci_tmp <- as.data.frame.list(summary.seiqhrf(x[[i]]))
-                ci_tmp <- ci_tmp %>% 
-                    mutate(time = as.numeric(row.names(ci_tmp))) %>%
-                    pivot_longer(cols = -time, names_to = 'compartment',
-                                 values_to = 'mean',
-                                 values_ptypes = list(compartment = 'character',
-                                                      mean = numeric())) %>%
-                    tidyr::separate(compartment, 
-                                    into = c('compartment', 'metric'), 
-                                    sep='num.') %>%
-                    mutate(compartment = paste0(compartment, 'num'),
-                           experiment = sim_id[i]) %>%
-                    pivot_wider(names_from = metric, values_from = mean) 
-                ci_info <- ci_info %>% bind_rows(ci_info, ci_tmp)
-            }
-        }
+    sim_id <- names(x)
+    if(class(x) != "list") stop("The class of x should either be list or seiqhrf")
+    ci_info <- ci_info_update(x[[1]], sim_id[1])
+    
+    if(length(sim_id) > 1){
+      for (i in (2:length(sim_id))) {
+        ci_tmp <- ci_info_update(x[[i]], sim_id[i])
+        ci_info <- ci_info %>% bind_rows(ci_info, ci_tmp)
+      }
     }
-    
-    ci_info <- ci_info %>% mutate(sim = 'sim') %>%
-        mutate(sim = 'sim')
-    ci_info[is.na(ci_info)] <- 0
-        
-    plot_df <- plot_df %>% 
-      dplyr::full_join(ci_info, by = c('time', 'compartment', 'experiment', 'sim'))
-    
-    return(plot_df)
+  }
+  
+  ci_info <- ci_info %>% mutate(sim = 'sim') %>%
+    mutate(sim = 'sim')
+  ci_info[is.na(ci_info)] <- 0
+  
+  plot_df <- plot_df %>% 
+    dplyr::full_join(ci_info, by = c('time', 'compartment', 'experiment', 'sim'))
+  
+  return(plot_df)
 }
 
 #' Add known counts to sims dataframe for ggplot

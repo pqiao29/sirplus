@@ -15,6 +15,7 @@
 #' }
 #' where t is the total number of time points in the simulation (i.e. object$nstep).
 #'
+#' @importFrom stats setNames
 #' @export
 summary.seiqhrf <- function(object, ...){
     
@@ -32,7 +33,7 @@ summary.seiqhrf <- function(object, ...){
     df_qnt_right <- as.data.frame(object, out = "qnt", qval = .975)[, sub_cols]
     
     #### prepare result 
-    res <- setNames(vector("list", length(c_names)), c_names)
+    res <- stats::setNames(vector("list", length(c_names)), c_names)
 
     for(prev_no in c_names){
 

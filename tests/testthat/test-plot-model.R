@@ -9,30 +9,22 @@ timing <- c(7, 14)
 nsteps <- 90
 
 
-## baseline
-baseline_sim <- simulate_seiqhrf(nsteps = nsteps, s.num = s.num, i.num = i.num,
-                                 q.num = q.num, h.num = h.num)
+control <- control_seiqhrf(nsteps = nsteps)
+param <- param_seiqhrf()
+init <- init_seiqhrf(s.num = s.num, i.num = i.num, q.num = q.num, h.num = h.num)
+
+baseline_sim <- seiqhrf(init, control, param)
 
 ## Experiment 1
 act_rate <- vary_param(nstep = nsteps, vals = vals, timing = timing)
+param_exp <- param_seiqhrf(act.rate.e = act_rate, act.rate.i = act_rate * 0.5)
+sim_exp <- seiqhrf(init, control, param)
 
-sim_exp <- simulate_seiqhrf(nsteps = nsteps, s.num = s.num, i.num = i.num,
-                            q.num = q.num, h.num = h.num, act.rate.e = act_rate, 
-                            act.rate.i = act_rate * 0.5)
-
-
-# ori_plot <- plot_models(c(baseline_sim, sim_exp),
-#                         sim_id = c('Baseline', 'Closures'),
-#                         start_date = lubridate::ymd("2020-01-01"),
-#                         comp_remove = c('s.num', 'r.num'),
-#                         plot_title = 'Closures Experiment')
-
-my_plot <-  plot(list('Baseline' = baseline_sim$sim, 'Closures' = sim_exp$sim),
+exp_plot <-  plot(list('Baseline' = baseline_sim, 'Closures' = sim_exp),
                  start_date = lubridate::ymd("2020-01-01"),
                  comp_remove = c('s.num', 'r.num'),
                  plot_title = 'Closures Experiment')
 
-expect_true(is.ggplot(my_plot))
-#expect_equal(all.equal(ori_plot, my_plot), TRUE)
+expect_true(ggplot2::is.ggplot(exp_plot))
 
 })

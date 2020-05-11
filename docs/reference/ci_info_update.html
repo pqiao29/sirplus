@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract and plot information of local and weekly estimates from simulation — get_weekly_local • sirplus</title>
+<title>Internal — ci_info_update • sirplus</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Extract and plot information of local and weekly estimates from simulation — get_weekly_local" />
-<meta property="og:description" content="Extract and plot information of local and weekly estimates from simulation" />
+<meta property="og:title" content="Internal — ci_info_update" />
+<meta property="og:description" content="Internal" />
 
 
 
@@ -115,82 +115,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract and plot information of local and weekly estimates from simulation</h1>
+    <h1>Internal</h1>
     
-    <div class="hidden name"><code>get_weekly_local.Rd</code></div>
+    <div class="hidden name"><code>ci_info_update.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract and plot information of local and weekly estimates from simulation</p>
+    <p>Internal</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_weekly_local</span>(
-  <span class='no'>sim</span>,
-  <span class='no'>market.share</span>,
-  <span class='no'>icu_percent</span>,
-  <span class='no'>start_date</span>,
-  <span class='no'>show_start_date</span>,
-  <span class='no'>time_limit</span>,
-  <span class='no'>sim_population</span>,
-  <span class='no'>total_population</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ci_info_update</span>(<span class='no'>obj</span>, <span class='kw'>exp_name</span> <span class='kw'>=</span> <span class='st'>"seiqhrf model"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sim</th>
-      <td><p>An <code>seiqhrf</code> object returned by <a href='simulate_seiqhrf.html'>simulate_seiqhrf</a>.</p></td>
+      <th>obj</th>
+      <td><p>An seiqhrf object</p></td>
     </tr>
     <tr>
-      <th>market.share</th>
-      <td><p>between 0 and 1, percentage of local hospital beds in 
-the simulated unit (e.g. state)</p></td>
-    </tr>
-    <tr>
-      <th>icu_percent</th>
-      <td><p>between 0 and 1, percentage of patients that should go to 
-ICU among the ones that need hospitalization</p></td>
-    </tr>
-    <tr>
-      <th>start_date</th>
-      <td><p>Epidemic start date. Default is 'na', if not provided will 
-plot week numbers, if provided will plot the first day (Sunday) of the
-week.</p></td>
-    </tr>
-    <tr>
-      <th>show_start_date</th>
-      <td><p>First date to show in plots. Use ymd format. If FALSE,
-shows from step 1.</p></td>
-    </tr>
-    <tr>
-      <th>time_limit</th>
-      <td><p>Number of days to include.</p></td>
-    </tr>
-    <tr>
-      <th>sim_population</th>
-      <td><p>Size of population simulated. Only needed if providing 
-`total_population`.</p></td>
-    </tr>
-    <tr>
-      <th>total_population</th>
-      <td><p>True population size, needed only if simulation size 
-is smaller than the true population size due to computational cost 
-etc.</p></td>
+      <th>exp_name</th>
+      <td><p>Name of experiment</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    
-<ul>
-<li><p><code>plot:</code> A <code>ggplot</code> object, bar charts of count of patients 
-             requiring hospitalization and ICU respectively</p></li>
-<li><p><code>result:</code> A dataframe</p><ul>
-<li><p><code>hosp:</code> the number of patients that require hospitalization locally,</p></li>
-<li><p><code>icu:</code> the number of patients that require ICU locally.</p></li>
-</ul></li>
-</ul>
 
 
   </div>

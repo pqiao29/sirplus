@@ -26,6 +26,7 @@
 #'
 #' @method as.data.frame seiqhrf
 #' @keywords extract
+#' @importFrom stats quantile
 #' @export
 #'
 #' @examples
@@ -51,7 +52,7 @@
 #'
 
 as.data.frame.seiqhrf <- function(x, row.names = NULL, optional = FALSE,
-                              out = "vals", sim, qval, ...) {
+                                  out = "vals", sim, qval, ...) {
     
     df <- data.frame(time = 1:x$control$nsteps)
     nsims <- x$control$nsims
@@ -125,7 +126,7 @@ as.data.frame.seiqhrf <- function(x, row.names = NULL, optional = FALSE,
             stop("Must specify qval as single value between 0 and 1", call. = FALSE)
         }
         for (i in seq_along(x$epi)) {
-            df[, i + 1] <- apply(x$epi[[i]], 1, quantile, probs = qval,
+            df[, i + 1] <- apply(x$epi[[i]], 1, stats::quantile, probs = qval,
                                  na.rm = TRUE, names = FALSE)
         }
     }

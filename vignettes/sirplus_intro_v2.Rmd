@@ -1,6 +1,7 @@
 ---
 title: "Introduction to sirplus (V2)"
 date: "Last updated: 12 April 2020"
+bibliography: bibliography.bib
 vignette: >
   %\VignetteIndexEntry{Introduction to sirplus (V2)}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,10 +17,14 @@ knitr::opts_chunk$set(echo = TRUE, cache=FALSE, eval=TRUE, collapse = TRUE,
 
 ![](sirplus-logo-small.png)
 
-The sirplus package makes it easy to generate [stochastic individual compartment 
-models (ICMs)](https://www.ncbi.nlm.nih.gov/pubmed/29731699) to simulate contagious disease spread using compartments not 
-available in standard SIR model in the [EpiModel package](http://www.epimodel.org/). This method and most of the code was 
-originally written by Tim Churches (see his [blog post](https://timchurches.github.io/blog/posts/2020-03-18-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-2/)). The sirplus package was developed by 
+The sirplus package makes it easy to generate stochastic individual compartment 
+models (ICMs) first implemented by @Jenness2018-uf to simulate contagious disease spread using compartments not 
+available in standard SIR model in the [EpiModel package](http://www.epimodel.org/). 
+
+The extension to EpiModel was originally proposed by @Churches2020-df in his [blog post](https://timchurches.github.io/blog/posts/2020-03-18-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-2/).
+The sirplus package has implemented the extended model building on [original code published by Tim Churches](https://gist.github.com/timchurches/92073d0ea75cfbd387f91f7c6e624bd7).
+
+The sirplus package was developed by 
 the Bioinformatics & Cellular Genomics team at St. Vincent's Institute of 
 Medical Research in order to help St. Vincents' Hospital model the COVID-19
 pandemic.
@@ -59,7 +64,7 @@ the three sub-transactions are described in the following diagram:
 <img align="center" src="inf.png" width="300">
 </p>
 
-Each one of  **inf.i**, **inf.e** and **inf.q** are controled by two parameters: <br>
+Each one of  **inf.i**, **inf.e** and **inf.q** are controlled by two parameters: <br>
 - `act.rate.*` controls the number of the S that are in contact with * each day, <br>
 - `inf.prob.*` controls the probability that S turns into E, given that S is in contact with *, <br>
 where `*` is one of `i`, `e` and `q` respectively.
@@ -251,3 +256,6 @@ plot(baseline_sim, method = "weekly_local",
      sim_population = sim_population,
      return_df = TRUE)
 ```
+
+
+# References

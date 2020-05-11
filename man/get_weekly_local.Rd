@@ -6,13 +6,13 @@
 \usage{
 get_weekly_local(
   sim,
-  market.share = market.share,
-  icu_percent = icu_percent,
-  start_date = start_date,
-  show_start_date = show_start_date,
-  time_limit = time_limit,
-  sim_population = sim_population,
-  total_population = total_population
+  market.share,
+  icu_percent,
+  start_date,
+  show_start_date,
+  time_limit,
+  sim_population,
+  total_population
 )
 }
 \arguments{
@@ -29,9 +29,9 @@ plot week numbers, if provided will plot the first day (Sunday) of the
 week.}
 
 \item{show_start_date}{First date to show in plots. Use ymd format. If FALSE,
-shows from step 1. Default: FALSE}
+shows from step 1.}
 
-\item{time_limit}{Number of days to include. Default = 90.}
+\item{time_limit}{Number of days to include.}
 
 \item{sim_population}{Size of population simulated. Only needed if providing 
 `total_population`.}

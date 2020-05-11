@@ -7,7 +7,7 @@
 get_ci(x, plot_df)
 }
 \arguments{
-\item{x}{An seiqhrf object returned from function \code{\link{seiqhrf}}.}
+\item{x}{An seiqhrf object returned from function \code{\link{seiqhrf}} or a list of seiqhrf objects.}
 
 \item{plot_df}{Dataframe with known compartment numbers to plot alongside
 projections}

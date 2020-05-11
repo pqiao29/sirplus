@@ -10,8 +10,9 @@
 #'
 #' @return list of parameter values for length t
 #'
+#' @importFrom utils tail
 #' @export
-vary_param <- function(nstep = nstep, vals = vals, timing = timing) {
+vary_param <- function(nstep, vals, timing) {
 
     stopifnot(length(vals) == length(timing))
     y <- list()
@@ -19,8 +20,8 @@ vary_param <- function(nstep = nstep, vals = vals, timing = timing) {
     for(t in seq(1:nstep)){
         if(t <= timing[1]){              # If before first jump set to val[1]
             y.t <- vals[1]
-        }else if(t > tail(timing, n=1)){ # If after last jump set to val[-1]
-            y.t <- tail(vals, n=1)
+        }else if(t > utils::tail(timing, n=1)){ # If after last jump set to val[-1]
+            y.t <- utils::tail(vals, n=1)
         }else{                           # If intermediate step, calculate...
             for(j in (2:length(timing))){
                 if(t > timing[j - 1] & t <= timing[j]){

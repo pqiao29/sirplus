@@ -4,7 +4,7 @@
 \alias{vary_param}
 \title{Generating time-dependent parameters}
 \usage{
-vary_param(nstep = nstep, vals = vals, timing = timing)
+vary_param(nstep, vals, timing)
 }
 \arguments{
 \item{nstep}{Number of time steps to generate parameter values for.}
