@@ -99,9 +99,9 @@
 <span class="no">control</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/control_seiqhrf.html">control_seiqhrf</a></span>(<span class="kw">nsteps</span> <span class="kw">=</span> <span class="no">nsteps</span>)
 <span class="no">init</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/init_seiqhrf.html">init_seiqhrf</a></span>(<span class="kw">s.num</span> <span class="kw">=</span> <span class="no">s.num</span>, <span class="kw">i.num</span> <span class="kw">=</span> <span class="no">i.num</span>, <span class="kw">q.num</span> <span class="kw">=</span> <span class="no">q.num</span>, <span class="kw">h.num</span> <span class="kw">=</span> <span class="no">h.num</span>)</pre></body></html></div>
 <p>Instead of running all <code>nsims</code> simulations with fixed parameter values, sirplus enables the <code>act.rate.*</code> and <code>inf.prob.*</code> (where <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> is one of <code>i</code>, <code>e</code> and <code>q</code>) to be randomly generated from a probability distribution, which can be seen as a prior.</p>
-<div id="using-fixed-parameter-values-across-time-with-default-prior-distributions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-fixed-parameter-values-across-time-with-default-prior-distributions" class="anchor"></a>1. Using fixed parameter values across time with default prior distributions</h3>
+<div id="using-fixed-parameter-values-across-time-with-default-prior-distributions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-fixed-parameter-values-across-time-with-default-prior-distributions" class="anchor"></a>1. Using fixed parameter values across time with default prior distributions</h2>
 <p>We use function <code>select_prior</code> to specify priors. If default prior distributions are desired, we only need to input a vector of the names of parameter that are to be generated stochastically.</p>
 <p>If not specified, the default values are as follows:</p>
 <table class="table">
@@ -159,9 +159,9 @@
 <span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></pre></body></html></div>
 <p><img src="stochastic_parameters_files/figure-html/fixed%20sim-1.png" width="700"></p>
 </div>
-<div id="using-time-varying-prior-distributions-with-default-prior-distributions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-time-varying-prior-distributions-with-default-prior-distributions" class="anchor"></a>2. Using time varying prior distributions with default prior distributions</h3>
+<div id="using-time-varying-prior-distributions-with-default-prior-distributions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-time-varying-prior-distributions-with-default-prior-distributions" class="anchor"></a>2. Using time varying prior distributions with default prior distributions</h2>
 <p>If a parameter in <code>param</code> is a vector (i.e. its value varies over time), its prior distribution will be different across time points as well.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">param</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/param_seiqhrf.html">param_seiqhrf</a></span>(<span class="kw">act.rate.i</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">10</span>, <span class="fl">5</span>, -<span class="fl">0.05</span>), <span class="kw">inf.prob.i</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0.1</span>, <span class="fl">0.05</span>, -<span class="fl">0.0005</span>))
 <span class="no">priors1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/select_prior.html">select_prior</a></span>(<span class="no">param</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"act.rate.q"</span>, <span class="st">"act.rate.i"</span>, <span class="st">"inf.prob.i"</span>, <span class="st">"inf.prob.e"</span>))
@@ -185,27 +185,27 @@
 <span class="co">## which will replace the existing scale.</span></pre></body></html></div>
 <p><img src="stochastic_parameters_files/figure-html/vary%20plot-2.png" width="700"></p>
 </div>
-<div id="using-time-varying-parameter-values-with-the-same-prior-distribution" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-time-varying-parameter-values-with-the-same-prior-distribution" class="anchor"></a>3. Using time varying parameter values with the same prior distribution</h3>
+<div id="using-time-varying-parameter-values-with-the-same-prior-distribution" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-time-varying-parameter-values-with-the-same-prior-distribution" class="anchor"></a>3. Using time varying parameter values with the same prior distribution</h2>
 <p>Another alternative to incorporate time varying parameters, is to simulate only for the first time point, parameters used for the latter time points are shifted from the input values in <code>param</code> by the same amount as the first time point. By doing so, we preserve the desired trend/change of the parameter across time by avoiding excessive variance, while allowing some randomness in the intercept. This can by achieved by simply setting <code>shift_only == TRUE</code>.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">priors2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/select_prior.html">select_prior</a></span>(<span class="no">param</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"act.rate.q"</span>, <span class="st">"act.rate.i"</span>, <span class="st">"inf.prob.i"</span>, <span class="st">"inf.prob.e"</span>), <span class="kw">shift_only</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">sim2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/seiqhrf.html">seiqhrf</a></span>(<span class="no">init</span>, <span class="no">control</span>, <span class="no">param</span>, <span class="no">priors2</span>)</pre></body></html></div>
 <p>Take <code>act.rate.i</code> for example, the increment between time points are preserved, but for each simulation the starting point is randomly generated.</p>
 <pre><code>## Generated act.rate.i:
-##       t = 1  t = 2  t = 3
-## sim1  9.896  9.846  9.796
-## sim2 10.140 10.090 10.040
-## sim3  9.979  9.929  9.879
+##       t = 1  t = 2 t = 3
+## sim1 10.083 10.033 9.983
+## sim2  9.786  9.736 9.686
+## sim3  9.994  9.944 9.894
 ## 
 ## 
 ## Original input of act.rate.i in param:
 ## t = 1 t = 2 t = 3 
 ## 10.00  9.95  9.90</code></pre>
 </div>
-<div id="using-user-specified-prior-distributions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#using-user-specified-prior-distributions" class="anchor"></a>4. Using user specified prior distributions</h3>
+<div id="using-user-specified-prior-distributions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-user-specified-prior-distributions" class="anchor"></a>4. Using user specified prior distributions</h2>
 <p>We can also manually specify the parameters in the prior distributions. For example, the following parameter setting results in distributions with larger variance.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">priors3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/select_prior.html">select_prior</a></span>(<span class="no">param</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"act.rate.q"</span>, <span class="st">"act.rate.i"</span>, <span class="st">"inf.prob.i"</span>, <span class="st">"inf.prob.e"</span>), <span class="kw">prior.dist</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"gaussian"</span>, <span class="st">"gaussian"</span>, <span class="st">"beta"</span>, <span class="st">"beta"</span>),
                        <span class="kw">prior.pars</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sd</span> <span class="kw">=</span> <span class="fl">1</span>), <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">sd</span> <span class="kw">=</span> <span class="fl">2</span>), <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fl">1</span>), <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fl">10</span>)))
@@ -229,7 +229,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

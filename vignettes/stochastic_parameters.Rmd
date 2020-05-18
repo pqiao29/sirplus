@@ -34,7 +34,7 @@ sirplus enables the `act.rate.*` and `inf.prob.*` (where `*` is one of `i`, `e` 
 to be randomly generated from a probability distribution, 
 which can be seen as a prior. 
 
-### 1. Using fixed parameter values across time with default prior distributions
+## 1. Using fixed parameter values across time with default prior distributions
 
 We use function `select_prior` to specify priors.
 If default prior distributions are desired, we only need to input a vector of the names of parameter that are to be generated stochastically. 
@@ -65,7 +65,7 @@ gridExtra::grid.arrange(baseline_plot, sim0_plot)
 
 
 
-### 2. Using time varying prior distributions with default prior distributions
+## 2. Using time varying prior distributions with default prior distributions
 
 If a parameter in `param` is a vector (i.e. its value varies over time), its prior distribution will be different across time points as well. 
 
@@ -86,7 +86,7 @@ sim1 <- seiqhrf(init, control, param, priors1)
 plot(sim1, start_date = lubridate::ymd("2020-01-01"), comp_remove = c('s.num', 'r.num'), plot_title = 'Priors with larger variance')
 ```
 
-### 3. Using time varying parameter values with the same prior distribution 
+## 3. Using time varying parameter values with the same prior distribution 
 
 Another alternative to incorporate time varying parameters, is to simulate only for the first time point, 
 parameters used for the latter time points are shifted from the input values in `param` by the same amount as the first time point. 
@@ -111,7 +111,7 @@ cat("\n\nOriginal input of act.rate.i in param: \n")
 tmp
 ```
 
-### 4. Using user specified prior distributions 
+## 4. Using user specified prior distributions 
 
 We can also manually specify the parameters in the prior distributions. 
 For example, the following parameter setting results in distributions with larger variance. 

@@ -463,6 +463,59 @@ parameter validity, these checks are the user's responsibility with new modules.
          <code><a href='control_seiqhrf.html'>control_seiqhrf</a></code> to specify the control settings. Run the
          parameterized model with <code><a href='seiqhrf.html'>seiqhrf</a></code>.</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'>param_seiqhrf</span>(<span class='kw'>inf.prob.e</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
+<span class='no'>param</span></div><div class='output co'>#&gt; SEIQHRF Parameters
+#&gt; ===========================
+#&gt; 
+#&gt; User specified control parameters:
+#&gt; ---------------------------
+#&gt; inf.prob.e = 0.01
+#&gt; 
+#&gt; Default control parameters:
+#&gt; ---------------------------
+#&gt; act.rate.e = 10
+#&gt; inf.prob.i = 0.05
+#&gt; act.rate.i = 10
+#&gt; inf.prob.q = 0.02
+#&gt; act.rate.q = 2.5
+#&gt; prog.rate = 0.1
+#&gt; quar.rate = 0.03333333
+#&gt; hosp.rate = 0.01
+#&gt; disch.rate = 0.06666667
+#&gt; rec.rate = 0.071
+#&gt; arec.rate = 0.05
+#&gt; prog.dist.scale = 5
+#&gt; prog.dist.shape = 1.5
+#&gt; quar.dist.scale = 1
+#&gt; quar.dist.shape = 1
+#&gt; hosp.dist.scale = 1
+#&gt; hosp.dist.shape = 1
+#&gt; disch.dist.scale = 1
+#&gt; disch.dist.shape = 1
+#&gt; rec.dist.scale = 35
+#&gt; rec.dist.shape = 1.5
+#&gt; arec.dist.scale = 35
+#&gt; arec.dist.shape = 1.5
+#&gt; fat.rate.base = 0.02
+#&gt; hosp.cap = 40
+#&gt; fat.rate.overcap = 0.04
+#&gt; fat.tcoeff = 0.5
+#&gt; flare.inf.point =
+#&gt; flare.inf.num =
+#&gt; a.rate = 2.876712e-05
+#&gt; a.prop.e = 0.01
+#&gt; a.prop.i = 0.001
+#&gt; a.prop.q = 0.01
+#&gt; ds.rate = 1.917808e-05
+#&gt; de.rate = 1.917808e-05
+#&gt; di.rate = 1.917808e-05
+#&gt; dq.rate = 1.917808e-05
+#&gt; dh.rate = 5.479452e-05
+#&gt; dr.rate = 1.917808e-05
+#&gt; act.rate = 1
+#&gt; groups = 1</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

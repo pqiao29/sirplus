@@ -152,6 +152,16 @@ Specifically departures (deaths not due to the virus, and emigration).</p>
 
     <p>Updated dat</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>control</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='control_seiqhrf.html'>control_seiqhrf</a></span>()
+<span class='no'>param</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='param_seiqhrf.html'>param_seiqhrf</a></span>()
+<span class='no'>init</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='init_seiqhrf.html'>init_seiqhrf</a></span>()
+
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='initialize.FUN.html'>initialize.FUN</a></span>(<span class='no'>param</span>, <span class='no'>init</span>, <span class='no'>control</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='infection.FUN.html'>infection.FUN</a></span>(<span class='no'>dat</span>, <span class='kw'>at</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='recovery.FUN.html'>recovery.FUN</a></span>(<span class='no'>dat</span>, <span class='kw'>at</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>departures.FUN</span>(<span class='no'>dat</span>, <span class='kw'>at</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
