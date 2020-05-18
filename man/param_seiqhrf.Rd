@@ -249,6 +249,11 @@ the user to pass an arbitrary set of original model parameters into
 parameter validity, these checks are the user's responsibility with new modules.
 }
 
+\examples{
+param <- param_seiqhrf(inf.prob.e = 0.01)
+param
+
+}
 \seealso{
 Use \code{\link{init.icm}} to specify the initial conditions and
          \code{\link{control_seiqhrf}} to specify the control settings. Run the

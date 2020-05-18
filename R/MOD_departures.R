@@ -9,6 +9,18 @@
 #'
 #' @return Updated dat
 #' @export
+#' @examples
+#' 
+#' control <- control_seiqhrf()
+#' param <- param_seiqhrf()
+#' init <- init_seiqhrf()
+#' 
+#' dat <- initialize.FUN(param, init, control) 
+#' dat <- infection.FUN(dat, at = 2)  
+#' dat <- recovery.FUN(dat, at = 2) 
+#' dat <- departures.FUN(dat, at = 2)
+#' 
+
 departures.FUN <- function(dat, at, seed = NULL) {
     
     if(!is.null(seed)) set.seed(seed)

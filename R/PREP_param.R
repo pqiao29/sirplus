@@ -160,9 +160,12 @@
 #'          parameterized model with \code{\link{seiqhrf}}.
 #'
 #' @keywords parameterization
-#'
 #' @export
-#'
+#' 
+#' @examples
+#' param <- param_seiqhrf(inf.prob.e = 0.01)
+#' param
+#' 
 param_seiqhrf <- function(inf.prob.e = 0.02,
                           act.rate.e = 10,
                           inf.prob.i = 0.05,

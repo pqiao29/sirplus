@@ -20,3 +20,15 @@ Updated dat
 Function to handle background demographics for the SEIQHRF model.
 Specifically departures (deaths not due to the virus, and emigration).
 }
+\examples{
+
+control <- control_seiqhrf()
+param <- param_seiqhrf()
+init <- init_seiqhrf()
+
+dat <- initialize.FUN(param, init, control) 
+dat <- infection.FUN(dat, at = 2)  
+dat <- recovery.FUN(dat, at = 2) 
+dat <- departures.FUN(dat, at = 2)
+
+}

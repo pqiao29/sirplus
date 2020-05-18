@@ -14,8 +14,8 @@ test_that("Identical output as Churches' original function: departures.FUN", {
     comp <- rep(NA, No_seeds)
     i <- 1
     for(seed in seed_list){
-        dat1 <- do.call(departures.FUN, list(dat, at, seed))
-        dat2 <- do.call(departures.seiqhrf.icm, list(dat, at, seed))
+        dat1 <- departures.FUN(dat, at, seed)
+        dat2 <- departures.seiqhrf.icm(dat, at, seed) 
         comp[i] <- identical(dat1, dat2)
         i <- i + 1
     }
