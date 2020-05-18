@@ -1,9 +1,9 @@
 ---
-title: "Introduction to sirplus (V2)"
+title: "Introduction to sirplus"
 date: "Last updated: 12 April 2020"
 bibliography: bibliography.bib
 vignette: >
-  %\VignetteIndexEntry{Introduction to sirplus (V2)}
+  %\VignetteIndexEntry{Introduction to sirplus}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

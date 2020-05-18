@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sirplus</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -95,7 +95,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/sirplus_intro_v2.html">Introduction to sirplus (V2)</a>
+      <a href="../articles/sirplus_intro.html">Introduction to sirplus</a>
+    </li>
+    <li>
+      <a href="../articles/stochastic_parameters.html">Using stochastic parameters</a>
     </li>
   </ul>
 </li>
@@ -124,7 +127,7 @@
     <p>Function to implement infection processes for SEIQHRF model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>seiqhrf</span>(<span class='no'>init</span>, <span class='no'>control</span>, <span class='no'>param</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>seiqhrf</span>(<span class='no'>init</span>, <span class='no'>control</span>, <span class='no'>param</span>, <span class='kw'>priors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,6 +143,10 @@
     <tr>
       <th>param</th>
       <td><p>Model parameters, returned by <code><a href='param_seiqhrf.html'>param_seiqhrf</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>priors</th>
+      <td><p>A prior object returned by <code><a href='select_prior.html'>select_prior</a></code>.</p></td>
     </tr>
     <tr>
       <th>seed</th>

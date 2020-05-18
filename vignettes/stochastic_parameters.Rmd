@@ -1,0 +1,130 @@
+---
+title: "Using stochastic parameters"
+date: "Last updated: 15 April 2020"
+vignette: >
+  %\VignetteIndexEntry{Using stochastic parameters}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+version_date <- lubridate::ymd("2020-04-12")
+knitr::opts_chunk$set(echo = TRUE, cache=FALSE, eval=TRUE, collapse = TRUE,
+                      tidy.opts=list(width.cutoff=60), tidy=FALSE)
+```
+
+
+```{r model setup}
+library(sirplus)
+library(ggplot2)
+
+s.num <- 1000  # number susceptible
+i.num <- 15  # number infected
+q.num <- 5  # number in self-isolation
+h.num <- 1  # number in the hospital
+nsteps <- 101 # number of steps (e.g. days) to simulate
+nsims  <- 20
+
+control <- control_seiqhrf(nsteps = nsteps)
+init <- init_seiqhrf(s.num = s.num, i.num = i.num, q.num = q.num, h.num = h.num)
+```
+
+Instead of running all `nsims` simulations with fixed parameter values, 
+sirplus enables the `act.rate.*` and `inf.prob.*` (where `*` is one of `i`, `e` and `q`)
+to be randomly generated from a probability distribution, 
+which can be seen as a prior. 
+
+### 1. Using fixed parameter values across time with default prior distributions
+
+We use function `select_prior` to specify priors.
+If default prior distributions are desired, we only need to input a vector of the names of parameter that are to be generated stochastically. 
+
+If not specified, the default values are as follows:
+
+| Variables  | Distribution     | Parameters (of the prior distribution) and default values    |
+|-------------|----------------------------| --------------------------------------------------------|
+| **act.rate.\* **     | Gaussian  | `mean = param$act.rate.*` and `sd = 0.1`  | 
+| **inf.prob.\* **     | Beta  | `a = 50` and `b` is calculated s.t. the expectation equals `param$inf.prob.*` | 
+
+```{r fixed prior}
+param <- param_seiqhrf()
+priors0 <- select_prior(param, c("act.rate.q", "act.rate.i", "inf.prob.i", "inf.prob.e"))
+priors0
+```
+
+We can see how the simulation is different from the baseline simulation which uses constant parameters. 
+```{r fixed sim}
+baseline_sim <- seiqhrf(init, control, param)
+baseline_plot <- plot(baseline_sim, start_date = lubridate::ymd("2020-01-01"), comp_remove = c('s.num', 'r.num'), plot_title = 'Baseline Model')
+
+sim0 <- seiqhrf(init, control, param, priors0)
+sim0_plot <- plot(sim0, start_date = lubridate::ymd("2020-01-01"), comp_remove = c('s.num', 'r.num'), plot_title = 'Default priors')
+
+gridExtra::grid.arrange(baseline_plot, sim0_plot)
+```
+
+
+
+### 2. Using time varying prior distributions with default prior distributions
+
+If a parameter in `param` is a vector (i.e. its value varies over time), its prior distribution will be different across time points as well. 
+
+```{r vary prior}
+param <- param_seiqhrf(act.rate.i = seq(10, 5, -0.05), inf.prob.i = seq(0.1, 0.05, -0.0005))
+priors1 <- select_prior(param, c("act.rate.q", "act.rate.i", "inf.prob.i", "inf.prob.e"))
+priors1
+```
+
+We can plot the priors and see how they change with time.
+If `nstep` is larger than 10, the prior curves of only 10 (evenly distributed) time points will be plotted (see the Step label). 
+```{r vary plot, warning=FALSE}
+gg1 <- plot(priors1)
+gridExtra::grid.arrange(gg1[[1]], gg1[[2]], gg1[[3]], gg1[[4]])
+
+
+sim1 <- seiqhrf(init, control, param, priors1)
+plot(sim1, start_date = lubridate::ymd("2020-01-01"), comp_remove = c('s.num', 'r.num'), plot_title = 'Priors with larger variance')
+```
+
+### 3. Using time varying parameter values with the same prior distribution 
+
+Another alternative to incorporate time varying parameters, is to simulate only for the first time point, 
+parameters used for the latter time points are shifted from the input values in `param` by the same amount as the first time point. 
+By doing so, we preserve the desired trend/change of the parameter across time by avoiding excessive variance,  while allowing some randomness in the intercept. This can by achieved by simply setting `shift_only == TRUE`.
+
+```{r shift_only prior}
+priors2 <- select_prior(param, c("act.rate.q", "act.rate.i", "inf.prob.i", "inf.prob.e"), shift_only = TRUE)
+sim2 <- seiqhrf(init, control, param, priors2)
+```
+
+Take `act.rate.i` for example, the increment between time points are preserved, but for each simulation the starting point is randomly generated. 
+```{r shift_only pars, echo=FALSE}
+cat("Generated act.rate.i: \n")
+tmp <- sim2$sampled.pars[["act.rate.i"]][1:3, 1:3]
+rownames(tmp) <- c("sim1", "sim2", "sim3")
+colnames(tmp) <- c("t = 1", "t = 2", "t = 3")
+round(tmp, 3)
+
+tmp <- param[["act.rate.i"]][1:3]
+names(tmp) <- c("t = 1", "t = 2", "t = 3")
+cat("\n\nOriginal input of act.rate.i in param: \n")
+tmp
+```
+
+### 4. Using user specified prior distributions 
+
+We can also manually specify the parameters in the prior distributions. 
+For example, the following parameter setting results in distributions with larger variance. 
+```{r}
+priors3 <- select_prior(param, c("act.rate.q", "act.rate.i", "inf.prob.i", "inf.prob.e"), prior.dist = c("gaussian", "gaussian", "beta", "beta"),
+                       prior.pars = list(list(sd = 1), list(sd = 2), list(a = 1), list(a = 10)))
+priors3
+gg3 <- plot(priors3)
+gridExtra::grid.arrange(gg3[[1]], gg3[[2]], gg3[[3]], gg3[[4]])
+```
+
+As expected, this leads to a larger variance in simulations as well:
+```{r, warning=FALSE, message=FALSE}
+sim3 <- seiqhrf(init, control, param, priors3)
+plot(sim3, start_date = lubridate::ymd("2020-01-01"), comp_remove = c('s.num', 'r.num'), plot_title = 'Default priors')
+```

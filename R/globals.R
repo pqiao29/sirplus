@@ -6,5 +6,6 @@ utils::globalVariables(c("time", "Date", "experiment", "compartment", "metric",
                          "infTime", "expTime", "recovTime", "dischTime","hospTime", "quarTime", "fatTime",
                          "incubation_period", "quarantine_delay", "illness_duration", "illness_duration_hosp", 
                          "hosp_los", "survival_time", "period_type", "duration", # plot_times
-                         "s" # seiqhrf
+                         "s",  # seiqhrf
+                         "density", "prior", "Step" # extract_dist
                          ))

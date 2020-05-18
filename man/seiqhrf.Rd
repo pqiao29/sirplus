@@ -4,7 +4,7 @@
 \alias{seiqhrf}
 \title{SEIQHRF function}
 \usage{
-seiqhrf(init, control, param, seed = NULL)
+seiqhrf(init, control, param, priors = NULL, seed = NULL)
 }
 \arguments{
 \item{init}{Initial state values, returned by \code{\link{init_seiqhrf}}.}
@@ -12,6 +12,8 @@ seiqhrf(init, control, param, seed = NULL)
 \item{control}{Control parameters of the model, returned by \code{\link{control_seiqhrf}}.}
 
 \item{param}{Model parameters, returned by \code{\link{param_seiqhrf}}.}
+
+\item{priors}{A prior object returned by \code{\link{select_prior}}.}
 
 \item{seed}{random seed for checking consistency}
 }

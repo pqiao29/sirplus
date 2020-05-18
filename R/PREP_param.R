@@ -203,7 +203,7 @@ param_seiqhrf <- function(inf.prob.e = 0.02,
                           di.rate = (7/365)/1000,
                           dq.rate = (7/365)/1000,
                           dh.rate = (20/365)/1000,
-                          dr.rate = (7/365)/1000, ...) {
+                          dr.rate = (7/365)/1000,  ...) {
     
     # Get arguments
     p <- list()

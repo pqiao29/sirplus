@@ -24,7 +24,7 @@ test_that("seiqhrf and simulate_seiqhrf produce identical output", {
         param <- param_seiqhrf(arec.rate = arec.rate, rec.rate = rec.rate)
         init <- init_seiqhrf(s.num = s.num, q.num = q.num)
         control <- control_seiqhrf(nsteps = nsteps, nsims = nsims, rec.rand = rec.rand)
-        sirplus_res <- seiqhrf(init, control, param, seed)
+        sirplus_res <- seiqhrf(init, control, param, NULL, seed)
         
         comp[i] <- identical(Churhes_res[3:4], sirplus_res[3:4]) # Due to $usr.specified in control and param, can only compare "epi" and "times"
         i <- i + 1
